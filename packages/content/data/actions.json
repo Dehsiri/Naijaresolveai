@@ -88,5 +88,53 @@
     "successLine": "Solder iron hot well. Customer phone screen shine back.",
     "failLine": "Ribbon cable snap. Master technician shook head.",
     "reviewStatus": "draft"
+  },
+  {
+    "id": "pos_agent",
+    "label": "Run POS cash withdrawal kiosk",
+    "location": "effurun",
+    "slots": 2,
+    "energy": 18,
+    "skill": "street",
+    "difficulty": 1,
+    "money": [1600, 2300],
+    "effects": { "mood": -2, "respect": 1 },
+    "successLine": "Cash dispensed smoothly. Small commission stack up.",
+    "failLine": "Network glitch delayed customer transfer. Wahala!",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "owambe_hype",
+    "label": "Hype Man at wedding party",
+    "location": "effurun",
+    "slots": 3,
+    "energy": 35,
+    "skill": "charisma",
+    "difficulty": 2,
+    "money": [3200, 4800],
+    "requires": {
+      "minSkill": { "charisma": 1 }
+    },
+    "effects": { "mood": 10, "respect": 3 },
+    "affinity": { "ejiro": 4 },
+    "successLine": "Crowd cheer your mic skills! Naira spray rain down.",
+    "failLine": "Microphone feed-back loud. MC take mic back.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "wharf_logistics",
+    "label": "Coordinate cargo at Jetty wharf",
+    "location": "warri_market",
+    "slots": 3,
+    "energy": 40,
+    "skill": "street",
+    "difficulty": 3,
+    "money": [4000, 6000],
+    "failMoney": 600,
+    "failEffects": { "heat": 3, "mood": -6 },
+    "effects": { "respect": 4 },
+    "successLine": "Containers cleared on time. Big boss paid cash envelope!",
+    "failLine": "Union taskforce dispute halted the offloading.",
+    "reviewStatus": "draft"
   }
 ]

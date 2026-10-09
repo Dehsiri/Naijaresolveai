@@ -193,5 +193,43 @@
       }
     ],
     "reviewStatus": "draft"
+  },
+  {
+    "id": "e_transformer_fixed",
+    "type": "random",
+    "weight": 2,
+    "location": "udu_home",
+    "title": "Community Transformer Rejoicing",
+    "text": "Shouts of 'Up NEPA!' echo through the streets! Technicians replaced the faulty community fuse.",
+    "choices": [
+      {
+        "id": "celebrate",
+        "label": "Plug all electronics and celebrate steady light",
+        "success": {
+          "text": "Cold water from fridge, fan spinning at full speed. Heaven on earth!",
+          "effects": { "stats": { "mood": 8, "energy": 10 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "e_street_football",
+    "type": "random",
+    "weight": 3,
+    "location": "garden_park",
+    "title": "Delta Grassroot Football Derby",
+    "text": "A heated neighbourhood 5-a-side match is in progress with fans screaming and drum beats.",
+    "choices": [
+      {
+        "id": "watch_match",
+        "label": "Watch the penalty shootout thriller",
+        "success": {
+          "text": "The underdog team scored the winning penalty! Pure jubilation.",
+          "effects": { "stats": { "mood": 6 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
   }
 ]

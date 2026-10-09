@@ -11,15 +11,24 @@ const ICONS: Record<string, string> = {
   garden_park: '🌳',
 };
 
+const TIME_NAMES = [
+  { name: '🌅 Morning', class: styles.morningGlow },
+  { name: '☀️ Afternoon', class: styles.afternoonGlow },
+  { name: '🌇 Evening', class: styles.eveningGlow },
+  { name: '🌙 Night', class: styles.nightGlow },
+  { name: '🌌 Late Night', class: styles.nightGlow },
+];
+
 export function LocationBanner() {
   const { state, content, eatChop, advanceDay, setActiveModal } = useGameStore();
   const currentLocation = content.locations.find((l) => l.id === state.location);
   const icon = ICONS[state.location] || '📍';
+  const timeInfo = TIME_NAMES[Math.min(state.slot, 4)] || TIME_NAMES[0];
 
   const canEat = state.mealsToday < 3 && state.money >= 500;
 
   return (
-    <div className={styles.banner}>
+    <div className={`${styles.banner} ${timeInfo.class}`}>
       <div className={styles.headerArea}>
         <div>
           <div className={styles.locationTitle}>
@@ -28,6 +37,7 @@ export function LocationBanner() {
           </div>
           <p className={styles.locationBlurb}>{currentLocation?.blurb}</p>
         </div>
+        <div className={styles.timeTag}>{timeInfo.name}</div>
       </div>
 
       <div className={styles.quickActions}>
