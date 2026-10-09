@@ -86,6 +86,26 @@ export function StatusBar() {
           </div>
         </div>
       </div>
+
+      <div className={styles.subRow}>
+        <div className={styles.subTags}>
+          <span className={`${styles.subTag} ${styles.respectTag}`} title="Street Respect">
+            👑 {state.stats.respect}%
+          </span>
+          {state.stats.heat > 0 && (
+            <span className={`${styles.subTag} ${styles.heatTag}`} title="Police / Street Heat">
+              🔥 Heat {state.stats.heat}%
+            </span>
+          )}
+          <span className={styles.subTag} title="Skills (Charisma / Street / Craft)">
+            🎯 C:{state.skills.charisma} · S:{state.skills.street} · Cr:{state.skills.craft}
+          </span>
+        </div>
+
+        <div style={{ fontSize: 11, color: 'var(--text-faint)' }}>
+          {state.housing === 'self_contain' ? '✨ Self-Contain' : '📦 Shared Room'}
+        </div>
+      </div>
     </header>
   );
 }

@@ -17,6 +17,7 @@ import {
   type DaySummary,
 } from '@warri-vibe/engine';
 import { loadContent, type ContentBundle } from '@warri-vibe/content';
+import { playSound } from '../utils/sound.ts';
 
 export type ModalType = 'none' | 'map' | 'shop' | 'housing' | 'phone' | 'settings' | 'summary';
 
@@ -104,6 +105,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
     let nextState = perform(state, action);
     nextState = maybeTriggerEvent(nextState, content);
 
+    if (nextState.money > state.money) {
+      playSound.coin();
+    } else {
+      playSound.click();
+    }
+
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, exportSave(nextState));
     }
@@ -117,6 +124,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const { state } = get();
     const nextState = eat(state, price, hungerDelta, moodDelta);
     if (nextState !== state) {
+      playSound.eat();
       if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEY, exportSave(nextState));
       }
@@ -129,6 +137,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const { state, content } = get();
     let nextState = travel(state, locationId, { mode, haggle });
     nextState = maybeTriggerEvent(nextState, content);
+
+    playSound.travel();
 
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, exportSave(nextState));
@@ -143,6 +153,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const { state, content } = get();
     const nextState = buyItem(state, itemId, content);
     if (nextState !== state) {
+      playSound.coin();
       if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEY, exportSave(nextState));
       }
@@ -156,6 +167,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const { state } = get();
     const nextState = upgradeHousing(state);
     if (nextState !== state) {
+      playSound.fanfare();
       if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEY, exportSave(nextState));
       }
@@ -169,6 +181,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const nextState = endDay(state);
     const summary = daySummary(state, nextState);
 
+    playSound.fanfare();
+
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, exportSave(nextState));
     }
@@ -179,6 +193,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
   respondToEvent: (choiceId: string) => {
     const { state, content } = get();
     const nextState = chooseEvent(state, choiceId, content);
+
+    playSound.click();
 
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, exportSave(nextState));

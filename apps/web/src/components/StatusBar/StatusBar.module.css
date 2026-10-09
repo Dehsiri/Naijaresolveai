@@ -147,3 +147,37 @@
 .hungerHigh {
   background: linear-gradient(90deg, #ef4444, #f87171);
 }
+
+.subRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.subTags {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.subTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 600;
+}
+
+.heatTag {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.respectTag {
+  color: #fde047;
+}
