@@ -1,19 +1,16 @@
 # Handoff Log
 
-## 2026-10-09 · Full End-to-End Build & Polish · Full Builder · main
+## 2026-10-09 · Interactive Phone Gist, Victory Screen & Polish · Full Builder · main
 - **Done:**
-  - Complete monorepo architecture: `packages/engine`, `packages/content`, `apps/web`, `scripts/`, and `.github/workflows/ci.yml`.
-  - **Engine (`@warri-vibe/engine`):** Implemented pure TypeScript rules, Mulberry32 deterministic PRNG, decay math, hunger, sleep, NEPA outages, keke haggling & trekking, provision shopping, housing rent & arrears eviction logic, Base64 save envelope export/import, and 32 unit tests.
-  - **Content (`@warri-vibe/content`):** Structured JSON seeds for locations, actions, food/gear items, NPCs, all 6 Chapter 1 story missions, 8 random events, and validator loader with draft-strings reporting.
-  - **Simulation (`scripts/econ-sim.mjs`):** Monte Carlo 200-run 30-day economy tuner against real engine.
-  - **Web UI & HUD Polish (`@warri-vibe/web`):**
-    - Enhanced [`StatusBar`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/StatusBar/StatusBar.tsx) with a secondary subRow HUD displaying Street Respect (`👑 %`), Police/Street Heat (`🔥 %`), Skills breakdown (`🎯 Charisma / Street / Craft`), and housing badge.
-    - Added zero-dependency Web Audio API synthesizer in [`apps/web/src/utils/sound.ts`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/utils/sound.ts) providing tactile audio effects for coin earnings, eating, travel, alerts, and celebrations.
-    - Created [`.github/workflows/ci.yml`](file:///c:/Users/USER/Documents/WARRI%20VIBES/.github/workflows/ci.yml) GitHub Actions pipeline for automated check/lint/test/build.
+  - **Interactive NPC Chat System ([`PhoneModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Modals/PhoneModal.tsx)):** Built interactive WhatsApp-style chat rooms for Mama Tonye, Ejiro, Elder Mine, and Blessing Tailor with dialogue bubbles, authentic Warri responses, and dynamic friendship affinity rewards.
+  - **Arrears Settlement ([`HousingModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Modals/HousingModal.tsx)):** Implemented in-app arrears payoff mechanism allowing players to pay overdue rent before the 2-month eviction threshold.
+  - **Chapter 1 Victory Celebration ([`VictoryModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Modals/VictoryModal.tsx)):** Added victory celebration screen triggering on completion of "Rent a Table" (Mission 6) displaying career stats (Days survived, final cash reserve, respect, and missions completed) before entering endless free play.
+  - **Sound FX Settings Toggle ([`SettingsModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Modals/SettingsModal.tsx)):** Integrated interactive Sound FX on/off switch persisted to local storage.
+  - **CI & Build Integrity:** Confirmed clean runs across test suite (37 tests), TypeScript typechecks, and Next.js static production export.
 - **Tests & Verification:**
-  - `npm run test` -> 37/37 tests passed (32 Engine + 5 Content).
-  - `npm run typecheck` -> 0 TypeScript errors across all 3 packages.
-  - `npm run build` -> Next.js static export compiled in 115 kB JS bundle.
+  - `npm run test` -> 37/37 tests passed.
+  - `npm run typecheck` -> 0 errors.
+  - `npm run build` -> Next.js static export bundle (117 kB First Load JS).
 - **Contract changes requested:** none
 - **Known issues / unsure about:** none
-- **Next steps:** Continue expanding narrative missions and testing further local content.
+- **Next steps:** Ready for live deployment and native Pidgin reviewer passes.
