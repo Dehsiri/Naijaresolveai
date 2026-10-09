@@ -15,6 +15,7 @@ import { PhoneModal } from '../components/Modals/PhoneModal';
 import { SettingsModal } from '../components/Modals/SettingsModal';
 import { EventModal } from '../components/Modals/EventModal';
 import { DaySummaryModal } from '../components/Modals/DaySummaryModal';
+import { VictoryModal } from '../components/Modals/VictoryModal';
 
 export default function GamePage() {
   const { isHydrated, init, activeModal, state } = useGameStore();
@@ -45,6 +46,7 @@ export default function GamePage() {
 
       {/* Dynamic Overlays & Modals */}
       {state.pendingEvent && <EventModal />}
+      {state.flags.chapter1Done && !state.flags.victoryDismissed && <VictoryModal />}
       {activeModal === 'summary' && <DaySummaryModal />}
       {activeModal === 'map' && <TravelModal />}
       {activeModal === 'shop' && <ShopModal />}

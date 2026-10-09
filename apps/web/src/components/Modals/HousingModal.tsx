@@ -6,7 +6,7 @@ import { RULES } from '@warri-vibe/engine';
 import modalStyles from './Modal.module.css';
 
 export function HousingModal() {
-  const { state, upgradeHouse, setActiveModal } = useGameStore();
+  const { state, upgradeHouse, settleArrears, setActiveModal } = useGameStore();
 
   const daysToRent = RULES.rentEvery - ((state.day - 1) % RULES.rentEvery);
   const isRentClose = daysToRent <= 3;
@@ -52,8 +52,31 @@ export function HousingModal() {
             </div>
 
             {state.flags.arrears > 0 && (
-              <div style={{ background: 'rgba(239,68,68,0.15)', color: '#fca5a5', padding: '6px 10px', borderRadius: 6, fontSize: 12, marginTop: 4 }}>
-                ⚠️ Warning: You have {state.flags.arrears} unpaid rent arrears! 2 arrears causes eviction.
+              <div
+                style={{
+                  background: 'rgba(239,68,68,0.15)',
+                  color: '#fca5a5',
+                  padding: '8px 10px',
+                  borderRadius: 6,
+                  fontSize: 12,
+                  marginTop: 6,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 6,
+                }}
+              >
+                <div>⚠️ Warning: You have {state.flags.arrears} unpaid rent arrears! 2 arrears causes eviction.</div>
+                <button
+                  className={modalStyles.secondaryBtn}
+                  style={{ background: 'rgba(239,68,68,0.25)', color: '#fff', fontSize: 12, minHeight: 36 }}
+                  disabled={state.money < rentDue}
+                  onClick={settleArrears}
+                  id="btn-settle-arrears"
+                >
+                  {state.money >= rentDue
+                    ? `Pay Off 1 Month Arrears (-₦${rentDue.toLocaleString()})`
+                    : `Need ₦${rentDue.toLocaleString()} to pay arrears`}
+                </button>
               </div>
             )}
 

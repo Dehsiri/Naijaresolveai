@@ -1,8 +1,24 @@
 // Web Audio API Synthesizer - 0 External Dependencies
 let audioCtx: AudioContext | null = null;
+let soundEnabled = true;
+
+export function setSoundEnabled(enabled: boolean) {
+  soundEnabled = enabled;
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('warri_sound_enabled', enabled ? '1' : '0');
+  }
+}
+
+export function isSoundEnabled(): boolean {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('warri_sound_enabled');
+    if (saved !== null) soundEnabled = saved === '1';
+  }
+  return soundEnabled;
+}
 
 function getAudioContext(): AudioContext | null {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined' || !soundEnabled) return null;
   if (!audioCtx) {
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
     if (AudioContextClass) {

@@ -2,12 +2,14 @@
 
 import React, { useState } from 'react';
 import { useGameStore } from '../../store/gameStore';
+import { isSoundEnabled, setSoundEnabled } from '../../utils/sound';
 import modalStyles from './Modal.module.css';
 
 export function SettingsModal() {
   const { state, exportSaveCode, importSaveCode, startNewGame, setActiveModal, showToast } = useGameStore();
   const [importText, setImportText] = useState('');
   const [copied, setCopied] = useState(false);
+  const [audioState, setAudioState] = useState(() => isSoundEnabled());
 
   const handleExport = () => {
     const code = exportSaveCode();
@@ -84,6 +86,28 @@ export function SettingsModal() {
                 id="btn-import-save"
               >
                 <span>📥 Restore Save</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Audio Settings */}
+          <div className={modalStyles.cardItem}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 15 }}>🔊 Sound FX (Web Audio)</div>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Synthesizer sound feedback for actions</div>
+              </div>
+              <button
+                className={modalStyles.secondaryBtn}
+                onClick={() => {
+                  const current = isSoundEnabled();
+                  setSoundEnabled(!current);
+                  setAudioState(!current);
+                  showToast(!current ? 'Sound FX Enabled' : 'Sound FX Muted');
+                }}
+                id="btn-toggle-sound"
+              >
+                <span>{audioState ? '🟢 Sound ON' : '🔴 Muted'}</span>
               </button>
             </div>
           </div>

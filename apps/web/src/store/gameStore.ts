@@ -41,6 +41,7 @@ export interface GameStore {
   travelTo: (locationId: string, mode: 'keke' | 'walk', haggle?: boolean) => void;
   purchaseItem: (itemId: string) => void;
   upgradeHouse: () => void;
+  settleArrears: () => void;
   advanceDay: () => void;
   respondToEvent: (choiceId: string) => void;
 
@@ -174,6 +175,26 @@ export const useGameStore = create<GameStore>((set, get) => ({
       set({ state: nextState, activeModal: 'none' });
       get().showToast('Moved into Self-Contain apartment!');
     }
+  },
+
+  settleArrears: () => {
+    const { state } = get();
+    const rent = state.housing === 'self_contain' ? 65000 : 30000;
+    if (state.money < rent || !state.flags.arrears) return;
+
+    const nextState = structuredClone(state);
+    nextState.money -= rent;
+    nextState.flags.arrears = Math.max(0, Number(nextState.flags.arrears) - 1);
+    nextState.ledger.push({ day: nextState.day, label: 'Settled Rent Arrears', amount: -rent });
+    nextState.log.push(`Settled 1 month rent arrears with landlord (-₦${rent.toLocaleString()}).`);
+    nextState.log = nextState.log.slice(-100);
+
+    playSound.coin();
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY, exportSave(nextState));
+    }
+    set({ state: nextState });
+    get().showToast('Rent arrears paid in full!');
   },
 
   advanceDay: () => {
