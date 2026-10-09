@@ -1,0 +1,68 @@
+'use client';
+
+import React from 'react';
+import { useGameStore } from '../../store/gameStore';
+import styles from './LocationBanner.module.css';
+
+const ICONS: Record<string, string> = {
+  udu_home: '🏠',
+  effurun: '🚖',
+  warri_market: '🛍️',
+  garden_park: '🌳',
+};
+
+export function LocationBanner() {
+  const { state, content, eatChop, advanceDay, setActiveModal } = useGameStore();
+  const currentLocation = content.locations.find((l) => l.id === state.location);
+  const icon = ICONS[state.location] || '📍';
+
+  const canEat = state.mealsToday < 3 && state.money >= 500;
+
+  return (
+    <div className={styles.banner}>
+      <div className={styles.headerArea}>
+        <div>
+          <div className={styles.locationTitle}>
+            <span className={styles.locationIcon}>{icon}</span>
+            <span>{currentLocation?.name || 'Warri Territory'}</span>
+          </div>
+          <p className={styles.locationBlurb}>{currentLocation?.blurb}</p>
+        </div>
+      </div>
+
+      <div className={styles.quickActions}>
+        <button
+          className={`${styles.quickBtn} ${styles.eatBtn}`}
+          onClick={() => eatChop()}
+          disabled={!canEat}
+          title={
+            !canEat
+              ? state.mealsToday >= 3
+                ? 'Full for today (3 meals max)'
+                : 'Need ₦500 for food'
+              : 'Eat Bole & Fish (-₦500, -35 Hunger)'
+          }
+          style={{ opacity: canEat ? 1 : 0.45 }}
+        >
+          <span>🍲 Chop (₦500)</span>
+        </button>
+
+        <button
+          className={styles.quickBtn}
+          onClick={() => setActiveModal('map')}
+          title="Change location by keke or trekking"
+        >
+          <span>🗺️ Travel</span>
+        </button>
+
+        <button
+          className={`${styles.quickBtn} ${styles.endDayBtn}`}
+          onClick={() => advanceDay()}
+          title="Rest and conclude today"
+        >
+          <span>🌙 Sleep / End Day</span>
+        </button>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,218 @@
+[
+  {
+    "id": "m_first_hustle",
+    "type": "mission",
+    "title": "First Day Hustle",
+    "trigger": { "minDay": 1, "location": "udu_home" },
+    "text": "Welcome to your room in Udu. Your pocket dey light (₦5,000) and rent is coming at end of month. Time to hit the street and start the hustle.",
+    "choices": [
+      {
+        "id": "start_journey",
+        "label": "Trek go Effurun Roundabout",
+        "success": {
+          "text": "You tie your shoe laces and head out into the morning sunshine.",
+          "effects": { "stats": { "respect": 1, "mood": 2 } }
+        }
+      },
+      {
+        "id": "plan_quiet",
+        "label": "Sit down and plan your budget",
+        "success": {
+          "text": "You write down your goals inside notebook. Discipline is key.",
+          "effects": { "stats": { "mood": 4 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "m_keke_fare",
+    "type": "mission",
+    "title": "Keke Fare Wahala",
+    "trigger": { "minDay": 2, "location": "effurun" },
+    "text": "The keke rider shouts say fuel price increase today, so fare is now double (₦600). You know say na wash.",
+    "choices": [
+      {
+        "id": "haggle",
+        "label": "Haggle with Warri pidgin sharpness",
+        "check": { "skill": "charisma", "difficulty": 2 },
+        "success": {
+          "text": "You give am sweet talk. 'Oga driver, na my area!'. He laughs and collects normal ₦300.",
+          "effects": { "stats": { "respect": 2, "mood": 3 } }
+        },
+        "fail": {
+          "text": "He no gree. Other passengers rush enter. You pay extra ₦200.",
+          "effects": { "money": -200, "stats": { "mood": -3 } }
+        }
+      },
+      {
+        "id": "pay",
+        "label": "Just pay without argument",
+        "success": {
+          "text": "You pay peace of mind money. No time for altercation.",
+          "effects": { "money": -300 }
+        }
+      },
+      {
+        "id": "argue",
+        "label": "Argue with full chest",
+        "success": {
+          "text": "Loud noise at junction! People gathered to watch drama. You stood on principle.",
+          "effects": { "stats": { "heat": 3, "mood": -3 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "m_light_go",
+    "type": "mission",
+    "title": "Light Don Go",
+    "trigger": { "firstOutage": true },
+    "text": "NEPA take light, and your phone battery dey blinking at 4%. You have an urgent gig client inquiry waiting.",
+    "choices": [
+      {
+        "id": "kiosk",
+        "label": "Pay kiosk ₦300 for fast charging",
+        "success": {
+          "text": "Phone charged to 70% inside charging booth. Saved the gig!",
+          "effects": { "money": -300, "stats": { "mood": 2 } }
+        }
+      },
+      {
+        "id": "borrow",
+        "label": "Plug into neighbour generator extension",
+        "success": {
+          "text": "Neighbour agrees gladly. 'Neighbour helping neighbour.'",
+          "effects": { "stats": { "mood": 3 }, "flags": { "owes_neighbour": true } }
+        }
+      },
+      {
+        "id": "skip",
+        "label": "Let the phone die and rest",
+        "success": {
+          "text": "Phone off. Quiet night, but missed the client message.",
+          "effects": { "stats": { "mood": -5 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "m_aso_ebi",
+    "type": "mission",
+    "title": "Aso-Ebi Pressure",
+    "trigger": { "weekday": 5, "minDay": 6, "location": "effurun" },
+    "text": "Ejiro pulls you aside: 'My guy, wedding dey this Saturday! The fabric na ₦4,000, we must uniform fine fine!'",
+    "choices": [
+      {
+        "id": "buy",
+        "label": "Buy full fabric (₦4,000)",
+        "requires": { "minMoney": 4000 },
+        "success": {
+          "text": "You show up looking like a real Delta boss. Owambe groove was legendary!",
+          "effects": {
+            "money": -4000,
+            "affinity": { "ejiro": 8 },
+            "stats": { "respect": 4, "mood": 6 }
+          }
+        }
+      },
+      {
+        "id": "negotiate",
+        "label": "Negotiate half-cut with tailor",
+        "check": { "skill": "charisma", "difficulty": 2 },
+        "success": {
+          "text": "Tailor makes custom cap and muffler for ₦2,000. Style still loud!",
+          "effects": {
+            "money": -2000,
+            "affinity": { "ejiro": 4 },
+            "stats": { "respect": 2 }
+          }
+        },
+        "fail": {
+          "text": "Tailor refused. You bought pocket handkerchief for ₦500.",
+          "effects": { "money": -500, "affinity": { "ejiro": 1 } }
+        }
+      },
+      {
+        "id": "decline",
+        "label": "Decline with humility ('Hustle tight')",
+        "success": {
+          "text": "Ejiro understands: 'No wahala my guy, next time!'",
+          "effects": { "affinity": { "ejiro": -1 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "m_market_day",
+    "type": "mission",
+    "title": "Market Day Test",
+    "trigger": { "minDay": 8, "location": "warri_market" },
+    "text": "Major market day! Bulk shipments arrived at the water-side jetty. Big opportunity to buy wholesale and flip.",
+    "choices": [
+      {
+        "id": "wholesale_flip",
+        "label": "Invest ₦3,000 in imported shoes bundle",
+        "requires": { "minMoney": 3000 },
+        "check": { "skill": "street", "difficulty": 2 },
+        "success": {
+          "text": "Sold out all pairs by midday! Made ₦6,500 total.",
+          "effects": {
+            "money": 3500,
+            "stats": { "respect": 3, "mood": 5 }
+          }
+        },
+        "fail": {
+          "text": "Rain fell in afternoon. Sold only few pairs, broke even.",
+          "effects": { "money": 0, "stats": { "mood": -2 } }
+        }
+      },
+      {
+        "id": "help_offload",
+        "label": "Help wholesalers offload cartons for daily wage",
+        "success": {
+          "text": "Heavy lifting, honest cash. Cash in hand ₦2,500.",
+          "effects": {
+            "money": 2500,
+            "stats": { "energy": -20, "respect": 1 }
+          }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "m_rent_table",
+    "type": "mission",
+    "title": "Rent a Market Table (Chapter 1 Finale)",
+    "trigger": { "minDay": 14, "location": "warri_market", "minMoney": 12000 },
+    "text": "Elder Mine calls you to the market union office: 'Young hustle, I have observed your consistency. A prime table near Section A is vacant for lease.'",
+    "choices": [
+      {
+        "id": "pay_deposit",
+        "label": "Pay ₦12,000 Lease Deposit & Sign Union Register",
+        "requires": { "minMoney": 12000 },
+        "success": {
+          "text": "CHAMPION! You are officially a registered business merchant at Warri Main Market. Chapter 1 Completed!",
+          "effects": {
+            "money": -12000,
+            "stats": { "respect": 25, "mood": 25 },
+            "flags": { "chapter1Done": true }
+          }
+        }
+      },
+      {
+        "id": "delay",
+        "label": "Ask for more time to gather capital",
+        "success": {
+          "text": "Elder Mine nods: 'Come back when your pocket is fully ready.'",
+          "effects": { "stats": { "respect": 0 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  }
+]

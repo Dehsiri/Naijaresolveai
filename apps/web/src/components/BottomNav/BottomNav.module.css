@@ -1,0 +1,65 @@
+.navBar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  height: var(--nav-height);
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid var(--glass-border);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center;
+  z-index: 50;
+  padding: 0 4px;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  min-height: var(--min-tap-target);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.navIcon {
+  font-size: 19px;
+  transition: transform 0.2s ease;
+}
+
+.navLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.navItemActive {
+  color: var(--primary);
+}
+
+.navItemActive .navIcon {
+  transform: translateY(-2px) scale(1.1);
+}
+
+.navItem:active {
+  transform: scale(0.92);
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 7px;
+  height: 7px;
+  background: var(--accent-red);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--accent-red-glow);
+}

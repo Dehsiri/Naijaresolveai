@@ -1,0 +1,53 @@
+:root {
+  /* Brand & Theme Colors */
+  --bg-main: #0a0f1d;
+  --bg-card: #131b2e;
+  --bg-card-hover: #1e293b;
+  --bg-card-active: #0f172a;
+  --bg-elevated: #1e293b;
+  
+  --glass-bg: rgba(19, 27, 46, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(245, 158, 11, 0.4);
+  
+  --primary: #f59e0b;
+  --primary-glow: rgba(245, 158, 11, 0.35);
+  --primary-hover: #d97706;
+  
+  --accent-green: #10b981;
+  --accent-green-glow: rgba(16, 185, 129, 0.3);
+  
+  --accent-cyan: #06b6d4;
+  --accent-cyan-glow: rgba(6, 182, 212, 0.3);
+  
+  --accent-red: #ef4444;
+  --accent-red-glow: rgba(239, 68, 68, 0.3);
+  
+  --accent-purple: #a855f7;
+  
+  /* Text */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
+  --text-gold: #fde047;
+  
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px var(--primary-glow);
+  
+  /* Typography */
+  --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Layout */
+  --max-width: 480px;
+  --min-tap-target: 44px;
+  --nav-height: 68px;
+}

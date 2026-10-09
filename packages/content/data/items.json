@@ -1,0 +1,46 @@
+[
+  {
+    "id": "power_bank",
+    "name": "Heavy Duty Power Bank",
+    "price": 6000,
+    "oneTime": true,
+    "blurb": "Light go, your phone still dey active. Cuts power cut penalty.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "meal_basic",
+    "name": "Bole & Fish (Basic Meal)",
+    "price": 500,
+    "hungerDelta": -35,
+    "moodDelta": 3,
+    "blurb": "Hot roasted plantain with peppered fish. Warri classic chop.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "meal_deluxe",
+    "name": "Owo Soup & Starch (Special)",
+    "price": 1200,
+    "hungerDelta": -60,
+    "moodDelta": 8,
+    "energyDelta": 10,
+    "blurb": "Yellow soup with dry fish and bushmeat. Premium native belly-full.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "recharge_card",
+    "name": "Data Bundle Recharge Card",
+    "price": 1000,
+    "moodDelta": 5,
+    "blurb": "1.5GB to stay online and reply client WhatsApp messages.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "sunglasses",
+    "name": "Stylist Shades",
+    "price": 2500,
+    "oneTime": true,
+    "moodDelta": 10,
+    "blurb": "Block the Delta sun and boost your charisma aura.",
+    "reviewStatus": "draft"
+  }
+]

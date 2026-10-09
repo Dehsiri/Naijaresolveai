@@ -1,0 +1,30 @@
+[
+  {
+    "id": "udu_home",
+    "name": "Your Room, Udu",
+    "blurb": "Small room, big dreams. Your base for hustle and rest.",
+    "art": "udu_home",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "effurun",
+    "name": "Effurun Roundabout",
+    "blurb": "Keke, shops, noise. The place never sleeps. Main junction of commerce.",
+    "art": "effurun",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "warri_market",
+    "name": "Warri Main Market",
+    "blurb": "Everything dey here if you get patience. High risk, fast money.",
+    "art": "warri_market",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "garden_park",
+    "name": "Effurun Garden Park",
+    "blurb": "Cheap peace, tree shade, and fresh air to clear your head.",
+    "art": "garden_park",
+    "reviewStatus": "draft"
+  }
+]

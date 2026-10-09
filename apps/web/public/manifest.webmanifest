@@ -1,0 +1,17 @@
+{
+  "name": "WARRI VIBE · Delta Life Simulator",
+  "short_name": "Warri Vibe",
+  "description": "Mobile-first single-player browser life sim set in Warri and Effurun, Delta State, Nigeria.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1d",
+  "theme_color": "#0a0f1d",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

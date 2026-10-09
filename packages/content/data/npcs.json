@@ -1,0 +1,34 @@
+[
+  {
+    "id": "mama_tonye",
+    "name": "Mama Tonye",
+    "role": "Provision Shop Owner",
+    "home": "effurun",
+    "bio": "Sharp businesswoman who runs the busiest provision spot at Effurun. Strict with change, generous with advice.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "ejiro",
+    "name": "Ejiro",
+    "role": "Keke Rider & Friend",
+    "home": "effurun",
+    "bio": "Knows every corner, junction, and police checkpoint between Warri and Effurun. Always looking for the next weekend groove.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "chief_oghenemine",
+    "name": "Elder Mine",
+    "role": "Market Union Chairman",
+    "home": "warri_market",
+    "bio": "Controls the table allocations at Warri Main Market. Respect and patience open doors with him.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "blessing_tailor",
+    "name": "Blessing Stitches",
+    "role": "Fashion Designer",
+    "home": "effurun",
+    "bio": "Master of aso-ebi cuts and senator wear. She knows all the wedding gist before it happens.",
+    "reviewStatus": "draft"
+  }
+]

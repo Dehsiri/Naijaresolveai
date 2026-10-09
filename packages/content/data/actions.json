@@ -1,0 +1,92 @@
+[
+  {
+    "id": "shop_shift",
+    "label": "Work at provision shop",
+    "location": "effurun",
+    "slots": 2,
+    "energy": 20,
+    "skill": "charisma",
+    "difficulty": 1,
+    "money": [1500, 2100],
+    "effects": { "mood": -3, "respect": 1 },
+    "affinity": { "mama_tonye": 3 },
+    "successLine": "Mama Tonye smile. Customers no wahala today.",
+    "failLine": "Customers vex say price high. E no easy today.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "delivery_run",
+    "label": "Deliver packages",
+    "location": "warri_market",
+    "slots": 2,
+    "energy": 25,
+    "skill": "street",
+    "difficulty": 2,
+    "money": [1900, 2500],
+    "failMoney": 300,
+    "effects": { "mood": -4 },
+    "failEffects": { "heat": 2 },
+    "successLine": "Parcel reach safe. Customer dey happy.",
+    "failLine": "You miss the address for inside market. Wahala dey o.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "freelance_gig",
+    "label": "Do a design gig on phone",
+    "location": "udu_home",
+    "slots": 3,
+    "energy": 30,
+    "skill": "craft",
+    "difficulty": 2,
+    "money": [2800, 3600],
+    "weeklyCap": 3,
+    "requires": {
+      "minSkill": { "craft": 0 }
+    },
+    "effects": { "mood": -2 },
+    "successLine": "Client pay sharp sharp. Your hustle dey work.",
+    "failLine": "Client say 'make the logo bigger'. No payment yet.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "market_resell",
+    "label": "Resell goods at the market",
+    "location": "warri_market",
+    "slots": 1,
+    "energy": 15,
+    "skill": "street",
+    "difficulty": 2,
+    "money": [600, 1500],
+    "failMoney": 400,
+    "effects": { "heat": 0 },
+    "successLine": "You bargain sharp price. Fast profit enter!",
+    "failLine": "Buyer waka go. You hold excess stock.",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "park_chill",
+    "label": "Rest in the park",
+    "location": "garden_park",
+    "slots": 1,
+    "energy": 0,
+    "money": [0, 0],
+    "effects": { "mood": 8, "energy": 10 },
+    "successLine": "Fresh breeze under tree. Your head clear small.",
+    "failLine": "",
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "phone_repairs",
+    "label": "Assist phone repair technician",
+    "location": "effurun",
+    "slots": 2,
+    "energy": 20,
+    "skill": "craft",
+    "difficulty": 1,
+    "money": [1400, 2200],
+    "effects": { "respect": 1 },
+    "successLine": "Solder iron hot well. Customer phone screen shine back.",
+    "failLine": "Ribbon cable snap. Master technician shook head.",
+    "reviewStatus": "draft"
+  }
+]

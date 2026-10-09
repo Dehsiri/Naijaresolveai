@@ -1,0 +1,19 @@
+{
+  "name": "@warri-vibe/content",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo lint content ok",
+    "test": "node --test tests/content.test.mjs"
+  },
+  "dependencies": {
+    "@warri-vibe/engine": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

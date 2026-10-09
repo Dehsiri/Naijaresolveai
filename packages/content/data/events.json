@@ -1,0 +1,197 @@
+[
+  {
+    "id": "e_generator_noise",
+    "type": "random",
+    "weight": 5,
+    "location": "udu_home",
+    "title": "Generator Orchestra",
+    "text": "Your neighbour's tiger gen starts rattling violently at 6:00 AM. Sleep has flown away.",
+    "choices": [
+      {
+        "id": "endure",
+        "label": "Endure the sound and wake up early",
+        "success": {
+          "text": "You rise tired, but up before the sun.",
+          "effects": { "stats": { "energy": -5 } }
+        }
+      },
+      {
+        "id": "buy_earplugs",
+        "label": "Buy foam earplugs from pharmacy (₦200)",
+        "success": {
+          "text": "Sweet silence restored. Catch small extra sleep.",
+          "effects": { "money": -200, "stats": { "energy": 5 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "e_rainstorm_wahala",
+    "type": "random",
+    "weight": 4,
+    "title": "Sudden Delta Downpour",
+    "text": "Heavy tropical rain starts pouring out of nowhere! Water flooding street gutters.",
+    "choices": [
+      {
+        "id": "take_cover",
+        "label": "Take shelter under a shop awning",
+        "success": {
+          "text": "Stayed dry while having friendly gist with other stranded people.",
+          "effects": { "stats": { "mood": 2 } }
+        }
+      },
+      {
+        "id": "rush_keke",
+        "label": "Rush into a passing keke (₦400 surge)",
+        "success": {
+          "text": "Saved your clothes, paid rain surge fare.",
+          "effects": { "money": -400 }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "e_free_suya",
+    "type": "random",
+    "weight": 3,
+    "location": "effurun",
+    "title": "Celebration Suya Tasting",
+    "text": "Mallam Abdullahi at the night spot is celebrating a new child and sharing hot beef suya to regulars.",
+    "choices": [
+      {
+        "id": "eat_suya",
+        "label": "Congratulate him and accept delicious spicy suya",
+        "success": {
+          "text": "Spicy, tender, well-seasoned! Hunger erased and spirit uplifted.",
+          "effects": { "stats": { "hunger": -25, "mood": 8 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "e_lost_wallet",
+    "type": "random",
+    "weight": 2,
+    "location": "warri_market",
+    "title": "Dropped Purse on the Pathway",
+    "text": "You spot a dropped purse on the floor near the spice stalls with ₦2,000 cash and an ID card.",
+    "choices": [
+      {
+        "id": "return_it",
+        "label": "Call out the name on ID and return it to the owner",
+        "success": {
+          "text": "The woman prays for you and gifts you ₦500 blessing reward. Respect in market went up!",
+          "effects": { "money": 500, "stats": { "respect": 4, "mood": 5 } }
+        }
+      },
+      {
+        "id": "keep_it",
+        "label": "Pocket the purse quietly",
+        "success": {
+          "text": "You gain the ₦2,000, but feel a wave of guilty conscience.",
+          "effects": { "money": 2000, "stats": { "mood": -6, "respect": -2 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "e_radio_shoutout",
+    "type": "random",
+    "weight": 3,
+    "title": "Wazobia FM Live Caller Gist",
+    "text": "You tune in to Wazobia FM and hear funny relationship debate on live radio.",
+    "choices": [
+      {
+        "id": "laugh",
+        "label": "Laugh out loud and enjoy the program",
+        "success": {
+          "text": "Warri humor never fails. Laughter recharges the soul.",
+          "effects": { "stats": { "mood": 6 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "e_sharp_bargain",
+    "type": "random",
+    "weight": 3,
+    "location": "warri_market",
+    "title": "Distress Sales Clearance",
+    "text": "A trader closing his stall early offers you a wholesale batch of power cables for cheap (₦1,000).",
+    "choices": [
+      {
+        "id": "buy_cables",
+        "label": "Buy and resell immediately",
+        "requires": { "minMoney": 1000 },
+        "check": { "skill": "street", "difficulty": 1 },
+        "success": {
+          "text": "Flipped the cables in 15 minutes for ₦2,400 total! Quick ₦1,400 profit.",
+          "effects": { "money": 1400, "stats": { "mood": 4 } }
+        },
+        "fail": {
+          "text": "Two cables were faulty. You only recovered ₦800.",
+          "effects": { "money": -200, "stats": { "mood": -2 } }
+        }
+      },
+      {
+        "id": "pass",
+        "label": "Pass on the offer",
+        "success": {
+          "text": "You keep moving. No risk taken.",
+          "effects": {}
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "e_street_dance",
+    "type": "random",
+    "weight": 3,
+    "location": "garden_park",
+    "title": "Acrobatic Street Dancers",
+    "text": "A youth dance crew is practicing amazing Afro-fusion dance stunts in the park open square.",
+    "choices": [
+      {
+        "id": "watch",
+        "label": "Watch and cheer them on",
+        "success": {
+          "text": "The energy was infectious! Mood fully refreshed.",
+          "effects": { "stats": { "mood": 7, "energy": 5 } }
+        }
+      },
+      {
+        "id": "tip_dancers",
+        "label": "Spray them ₦200 appreciation",
+        "success": {
+          "text": "They shouted your praise! 'Boss levels! Respect!'",
+          "effects": { "money": -200, "stats": { "respect": 3, "mood": 10 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  },
+  {
+    "id": "e_phone_credit_bonus",
+    "type": "random",
+    "weight": 2,
+    "title": "Network Provider Promo Bonus",
+    "text": "A flash SMS arrives: You have been awarded 500MB bonus data for active SIM usage.",
+    "choices": [
+      {
+        "id": "claim",
+        "label": "Claim bonus data",
+        "success": {
+          "text": "Bonus active! Browsing feels sweeter when it's free.",
+          "effects": { "stats": { "mood": 4 } }
+        }
+      }
+    ],
+    "reviewStatus": "draft"
+  }
+]

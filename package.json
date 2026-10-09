@@ -1,0 +1,21 @@
+{
+  "name": "warri-vibe-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=packages/engine && npm run build --workspace=packages/content && npm run build --workspace=apps/web",
+    "test": "npm run test --workspace=packages/engine && npm run test --workspace=packages/content",
+    "test:e2e": "npm run test:e2e --workspace=apps/web",
+    "typecheck": "npm run typecheck --workspace=packages/engine && npm run typecheck --workspace=packages/content && npm run typecheck --workspace=apps/web",
+    "lint": "npm run lint --workspace=packages/engine && npm run lint --workspace=packages/content && npm run lint --workspace=apps/web",
+    "sim": "node scripts/econ-sim.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
