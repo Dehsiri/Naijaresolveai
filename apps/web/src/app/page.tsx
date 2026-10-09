@@ -8,6 +8,7 @@ import { ActionList } from '../components/ActionList/ActionList';
 import { BottomNav } from '../components/BottomNav/BottomNav';
 import { GameLog } from '../components/GameLog/GameLog';
 import { Toast } from '../components/GameLog/Toast';
+import { AmbientBackdrop } from '../components/AmbientBackdrop/AmbientBackdrop';
 import { TravelModal } from '../components/Modals/TravelModal';
 import { ShopModal } from '../components/Modals/ShopModal';
 import { HousingModal } from '../components/Modals/HousingModal';
@@ -37,6 +38,7 @@ export default function GamePage() {
 
   return (
     <main className="app-container">
+      <AmbientBackdrop />
       <StatusBar />
       <Toast />
       <LocationBanner />
