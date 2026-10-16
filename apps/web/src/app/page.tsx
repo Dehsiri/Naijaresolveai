@@ -17,6 +17,8 @@ import { SettingsModal } from '../components/Modals/SettingsModal';
 import { EventModal } from '../components/Modals/EventModal';
 import { DaySummaryModal } from '../components/Modals/DaySummaryModal';
 import { VictoryModal } from '../components/Modals/VictoryModal';
+import { AvatarStudioModal } from '../components/Avatar3D/AvatarStudioModal';
+import { WorldExplorerModal } from '../components/WorldExplorer/WorldExplorerModal';
 
 export default function GamePage() {
   const { isHydrated, init, activeModal, state } = useGameStore();
@@ -55,6 +57,8 @@ export default function GamePage() {
       {activeModal === 'housing' && <HousingModal />}
       {activeModal === 'phone' && <PhoneModal />}
       {activeModal === 'settings' && <SettingsModal />}
+      {activeModal === 'avatar' && <AvatarStudioModal />}
+      {activeModal === 'world' && <WorldExplorerModal />}
     </main>
   );
 }

@@ -51,6 +51,24 @@ export function SettingsModal() {
         </div>
 
         <div className={modalStyles.modalBody}>
+          {/* 3D Avatar Studio */}
+          <div className={modalStyles.cardItem} style={{ border: '1px solid var(--primary-glow)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--text-gold)' }}>✨ 3D Avatar & Drip Studio</div>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Male & Female 3D avatars, Senator styles, Gele & Coral beads</div>
+              </div>
+              <button
+                className={modalStyles.primaryBtn}
+                onClick={() => setActiveModal('avatar')}
+                id="btn-settings-avatar-studio"
+                style={{ minHeight: 40, padding: '0 12px', fontSize: 13 }}
+              >
+                <span>Edit 3D Drip</span>
+              </button>
+            </div>
+          </div>
+
           {/* Save Envelope Management */}
           <div className={modalStyles.cardItem}>
             <div style={{ fontWeight: 700, fontSize: 15 }}>💾 Backup & Transfer Save</div>

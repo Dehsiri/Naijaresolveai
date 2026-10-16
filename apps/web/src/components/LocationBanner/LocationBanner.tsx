@@ -59,6 +59,15 @@ export function LocationBanner() {
 
         <button
           className={styles.quickBtn}
+          onClick={() => setActiveModal('world')}
+          title="Walk and explore this location in 3D"
+          id="btn-explore-3d-world"
+        >
+          <span>🚶 Walk in 3D</span>
+        </button>
+
+        <button
+          className={styles.quickBtn}
           onClick={() => setActiveModal('map')}
           title="Change location by keke or trekking"
         >

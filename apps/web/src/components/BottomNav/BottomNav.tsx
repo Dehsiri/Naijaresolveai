@@ -12,6 +12,7 @@ interface NavItemDef {
 
 const NAV_ITEMS: NavItemDef[] = [
   { id: 'none', label: 'Hustle', icon: '⚡' },
+  { id: 'world', label: '3D World', icon: '🚶' },
   { id: 'map', label: 'Travel', icon: '🚖' },
   { id: 'shop', label: 'Chop/Shop', icon: '🛒' },
   { id: 'housing', label: 'House', icon: '🏠' },

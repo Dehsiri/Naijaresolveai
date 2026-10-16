@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useGameStore } from '../../store/gameStore';
+import { AvatarChip } from '../Avatar3D/AvatarChip';
 import styles from './StatusBar.module.css';
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -25,6 +26,8 @@ export function StatusBar() {
             ))}
           </div>
         </div>
+
+        <AvatarChip />
 
         <div className={styles.topRight}>
           <div className={styles.moneyChip} title="Your Cash in Naira">

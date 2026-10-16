@@ -12,14 +12,18 @@ import {
   importSave,
   maybeTriggerEvent,
   chooseEvent,
+  applyStats,
+  addMoney,
   type GameState,
+  type Stats,
   type ActionDef,
   type DaySummary,
 } from '@warri-vibe/engine';
 import { loadContent, type ContentBundle } from '@warri-vibe/content';
-import { playSound } from '../utils/sound.ts';
+import { playSound } from '../utils/sound';
+import { AvatarConfig, DEFAULT_MALE_AVATAR } from '../types/avatar';
 
-export type ModalType = 'none' | 'map' | 'shop' | 'housing' | 'phone' | 'settings' | 'summary';
+export type ModalType = 'none' | 'map' | 'shop' | 'housing' | 'phone' | 'settings' | 'summary' | 'avatar' | 'world';
 
 export interface GameStore {
   state: GameState;
@@ -44,6 +48,13 @@ export interface GameStore {
   settleArrears: () => void;
   advanceDay: () => void;
   respondToEvent: (choiceId: string) => void;
+  updateAvatar: (avatarConfig: Partial<AvatarConfig>) => void;
+  interactWorld: (
+    actionName: string,
+    statDeltas: Partial<Stats>,
+    moneyDelta?: number,
+    logMessage?: string
+  ) => void;
 
   exportSaveCode: () => string;
   importSaveCode: (code: string) => { ok: boolean; error?: string };
@@ -224,6 +235,55 @@ export const useGameStore = create<GameStore>((set, get) => ({
     set({ state: nextState });
     const latestLog = nextState.log[nextState.log.length - 1];
     if (latestLog) get().showToast(latestLog);
+  },
+
+  updateAvatar: (avatarConfig: Partial<AvatarConfig>) => {
+    const { state } = get();
+    const current = (state.flags.avatar as AvatarConfig) || DEFAULT_MALE_AVATAR;
+    const updated = { ...current, ...avatarConfig };
+    const nextState: GameState = {
+      ...state,
+      flags: {
+        ...state.flags,
+        avatar: updated,
+      },
+    };
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY, exportSave(nextState));
+    }
+
+    set({ state: nextState });
+  },
+
+  interactWorld: (
+    actionName: string,
+    statDeltas: Partial<Stats>,
+    moneyDelta?: number,
+    logMessage?: string
+  ) => {
+    const { state } = get();
+    const nextState: GameState = structuredClone(state);
+
+    applyStats(nextState, statDeltas);
+
+    if (moneyDelta) {
+      addMoney(nextState, moneyDelta, actionName);
+    }
+
+    if (logMessage) {
+      nextState.log.push(logMessage);
+      nextState.log = nextState.log.slice(-100);
+    }
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY, exportSave(nextState));
+    }
+
+    set({ state: nextState });
+    if (logMessage) {
+      get().showToast(logMessage);
+    }
   },
 
   exportSaveCode: () => {

@@ -17,3 +17,49 @@
 - **Contract changes requested:** none
 - **Known issues / unsure about:** none
 - **Next steps:** Ready for local playtesting on dev server (`http://localhost:3000`) and deployment to static CDN / Vercel / GitHub Pages.
+
+## 2026-10-12 · Male & Female 3D Avatars & Studio Modal · Agent B (Antigravity) · master
+- **Done:**
+  - **Added 3D Dependencies & Architecture:** Added `three` and `@types/three` dependencies to `apps/web` with technical rationale recorded in `docs/DECISIONS.md` (Decision 003).
+  - **Avatar Data Models & Customization Presets ([`apps/web/src/types/avatar.ts`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/types/avatar.ts)):** Configured models for Male (`Bros Efe`) and Female (`Sisi Blessing`) avatars, 5 African complexion tones, 6 Delta fabric palettes (Emerald & Gold, Royal Blue, Owambe Ruby/Wine, Urban Shadow, Sunset Terracotta, Pure White Lace), cultural hairstyles/headwear (Sharp Fade, Classic Afro, Delta Fila cap, Locs, Royal Gele headwrap, Box Braids, Braided Bun, Afro Puff), and jewelry (Edo/Delta royal *Ivie* coral beads, gold Cuban chains, designer shades, wristwatch, hoop earrings).
+  - **Procedural 3D Mesh & Animation Rig ([`apps/web/src/components/Avatar3D/AvatarModelBuilder.ts`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Avatar3D/AvatarModelBuilder.ts)):** Pure procedural Three.js character builder with zero external mesh assets for 100% offline PWA compatibility; features articulated skeletal hierarchy, customizable garments (Senator tunic, Ankara peplum flare, Owambe Agbada / lace drape), pedestal stage, and 5 animation states (`idle` breathing, `groove` Afrobeat dance, `wave` Delta welcome, `proud` street don stance, and `hustle` fist pump) with dynamic fatigue/mood reactivity.
+  - **Interactive WebGL Canvas ([`apps/web/src/components/Avatar3D/AvatarCanvas3D.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Avatar3D/AvatarCanvas3D.tsx)):** 360° touch/mouse drag orbit rotation, inertial damping, floating dust particles, studio lighting (with NEPA outage dimming reaction), and double-tap gesture interaction.
+  - **3D Avatar Studio Modal ([`apps/web/src/components/Avatar3D/AvatarStudioModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Avatar3D/AvatarStudioModal.tsx)):** Full-featured customization studio with 1-tap Male/Female toggle, quick Delta presets (Warri Senator, Delta Queen, Street Hustler, Owambe Royale), 5 customization tabs, randomize button, and save action.
+  - **HUD AvatarChip Integration ([`apps/web/src/components/Avatar3D/AvatarChip.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Avatar3D/AvatarChip.tsx)):** Embedded mini 3D bust in the top status bar displaying character name, gender tag, outfit summary, and $\ge 44\text{px}$ touch target to open the studio. Also linked in `SettingsModal`.
+  - **Save Persistence:** Avatar state stored under `state.flags.avatar` for zero engine contract breakage and seamless Base64 save code export/import support.
+- **Tests & Verification:**
+  - `npm run typecheck` -> 0 TypeScript diagnostics across `@warri-vibe/engine`, `@warri-vibe/content`, and `@warri-vibe/web`.
+  - `npm run lint` -> All packages lint cleanly.
+  - `npm run test` -> 37/37 unit and content validation tests passing.
+  - `npm run build` -> Next.js static export bundle generated successfully (`apps/web/out`).
+- **Contract changes requested:** none
+- **Known issues / unsure about:** Headless Playwright browser environment in subagent encountered driver download issue; dev server is live on `http://localhost:3000` for visual playtesting.
+- **Next steps:** Ready for player testing on mobile browsers (`360×640` and `390×844`).
+
+## 2026-10-16 · Controllable 3D Avatar & Location Environments · UI Agent · master
+- **Done:**
+  - **Procedural Walking Animation & Rig Update ([`apps/web/src/components/Avatar3D/AvatarModelBuilder.ts`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Avatar3D/AvatarModelBuilder.ts)):** Added procedural `walk` pose with dynamic alternating leg stride, counter-balancing arm swing, forward hustle lean, natural head/torso bobbing, and optional studio pedestal removal for roaming open environments.
+  - **3D Location Environments ([`apps/web/src/components/WorldExplorer/WorldScenes.ts`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldScenes.ts)):** Designed and implemented 4 full procedural 3D environments with rich Nigerian Delta cultural details:
+    1. **Living Room (Your Room, Udu):** Linoleum floor, Delta patterned rug, walls with outside daylight window, comfy parlor sofa with cushions, CRT television, spinning oscillating fan, and Tiger "I pass my neighbor" generator.
+    2. **Church (Warri Praise & Thanksgiving Chapel):** Polished marble tile floor, red carpet aisle, tall arched stained-glass windows, radiant glowing golden altar cross, preacher pulpit with microphone, and wooden sanctuary pews.
+    3. **Market (Warri Main Market Hub):** Cobblestone ground, wooden market stalls, giant red/yellow umbrellas, tomato & pepper crates, POS cash booth, cold drinks kiosk, and festive bunting flags.
+    4. **Effurun Junction / Street:** Asphalt roadway with lane stripes, sidewalk curb, yellow Keke NAPEP tricycle, street pride billboard ("WARRI NO DEY CARRY LAST!"), and charcoal Bole & fish grill stand.
+  - **Controllable Avatar & Mobile Virtual D-Pad ([`apps/web/src/components/WorldExplorer/WorldControls.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldControls.tsx)):** Built dual-input controller supporting desktop keyboard (`W`, `A`, `S`, `D`, arrow keys, `Space`, `E`, sprint `Shift`) and mobile-first virtual D-Pad with $\ge 44\text{px}$ touch targets, sprint toggle, and dynamic proximity interaction triggers.
+  - **3D World Explorer Modal ([`apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx)):** Real-time Three.js canvas with smooth third-person camera following, boundary collision clamping, ground pulsing hotspot rings, audio synthesis feedback, live location switching tabs, and direct in-game stat/money rewards.
+  - **Game Navigation & UI Integration:**
+    - Bottom Nav ([`apps/web/src/components/BottomNav/BottomNav.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/BottomNav/BottomNav.tsx)): Added `🚶 3D World` item.
+    - Location Banner ([`apps/web/src/components/LocationBanner/LocationBanner.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/LocationBanner/LocationBanner.tsx)): Added `🚶 Walk in 3D` quick action button.
+    - Avatar Studio ([`apps/web/src/components/Avatar3D/AvatarStudioModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Avatar3D/AvatarStudioModal.tsx)): Added `🚶 Walk in 3D` button to test custom drip immediately.
+    - Game Store ([`apps/web/src/store/gameStore.ts`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/store/gameStore.ts)): Added `world` modal type and `interactWorld()` state action.
+  - **Obstacle Collision Detection & Smooth Sliding ([`apps/web/src/components/WorldExplorer/WorldScenes.ts`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldScenes.ts), [`apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx)):**
+    - Added `WorldObstacle` bounding boxes for all 4 locations (parlor sofa, CRT TV stand, Tiger generator, oscillating fan, church altar platform, sanctuary pew rows, market tables, POS kiosk booth, drinks cooler, yellow Keke NAPEP, Bole charcoal grill, and billboard posts).
+    - Implemented axis-separated `resolveMovement()` collision solver with 0.32-unit physical avatar radius, preventing the avatar from penetrating solid objects while allowing smooth sliding along obstacle edges.
+- **Tests & Verification:**
+  - `npm run typecheck` -> 0 errors across engine, content, and web.
+  - `npm run test` -> 37/37 unit and content validation tests passing.
+  - `npm run lint` -> All packages lint cleanly.
+  - `npm run build` -> Next.js production static export generated successfully.
+  - Local dev server running on `http://localhost:3000` responding `200 OK`.
+- **Contract changes requested:** none
+- **Known issues / unsure about:** none
+- **Next steps:** Ready for interactive mobile testing at `360×640` and `390×844`.

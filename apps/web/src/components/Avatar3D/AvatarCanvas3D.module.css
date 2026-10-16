@@ -1,0 +1,122 @@
+.canvasWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  user-select: none;
+  touch-action: none;
+  background: radial-gradient(circle at 50% 35%, #1e293b 0%, #0b1120 70%, #030712 100%);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.canvasWrapper:hover {
+  border-color: var(--glass-border-hover);
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  cursor: grab;
+}
+
+.canvas:active {
+  cursor: grabbing;
+}
+
+/* Size Variants */
+.sizeSm {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 2px var(--primary-glow);
+}
+
+.sizeMd {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-md);
+}
+
+.sizeLg {
+  width: 100%;
+  height: 320px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.sizeHero {
+  width: 100%;
+  height: 380px;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* Floating Overlay Badge */
+.genderPill {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-gold);
+  letter-spacing: 0.5px;
+  pointer-events: none;
+}
+
+.interactionHint {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  color: var(--text-muted);
+  pointer-events: none;
+  animation: pulseHint 3s infinite ease-in-out;
+}
+
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.7; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+
+.rotateControlBtn {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.rotateControlBtn:hover {
+  background: var(--primary);
+  color: #000;
+  transform: scale(1.08);
+}
