@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * NaijaResolve AI — Global CSS & shadcn/ui Variables (Instagram Palette)
+ * --background: #FAFAFA (Instagram light feed gray)
+ * --foreground: #121212 (Instagram obsidian dark)
+ * --primary: #E1306C (Instagram signature pink-magenta)
+ */
+@layer base {
+  :root {
+    --background: 0 0% 98%;        /* #FAFAFA */
+    --foreground: 0 0% 7%;         /* #121212 */
+    --card: 0 0% 100%;             /* #FFFFFF */
+    --card-foreground: 0 0% 7%;    /* #121212 */
+    --primary: 340 75% 54%;        /* #E1306C Instagram Pink */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --secondary: 0 0% 94%;         /* #EFEFEF */
+    --secondary-foreground: 0 0% 15%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;  /* #737373 */
+    --border: 0 0% 86%;            /* #DBDBDB Instagram hairline */
+    --input: 0 0% 86%;
+    --ring: 340 75% 54%;           /* #E1306C */
+    --radius: 0.875rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-warm text-navy font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+}
+
+/* Instagram gradient text helper */
+.text-ig-gradient {
+  background: linear-gradient(90deg, #833AB4 0%, #E1306C 50%, #F77737 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Typography utilities matching Section 3 table */
+.text-hero-h1 {
+  font-size: clamp(36px, 6vw, 60px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.text-section-h2 {
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.text-page-h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.text-chat-h1 {
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 800;
+}
