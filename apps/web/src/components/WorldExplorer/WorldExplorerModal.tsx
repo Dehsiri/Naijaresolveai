@@ -12,9 +12,24 @@ import {
   WorldHotspot,
 } from './WorldScenes';
 import { WorldControls } from './WorldControls';
+import { WarriGoogleMap } from '../GoogleMap/WarriGoogleMap';
 import { playSound } from '../../utils/sound';
 import { AvatarConfig, DEFAULT_MALE_AVATAR } from '../../types/avatar';
 import styles from './WorldExplorerModal.module.css';
+
+const WORLD_TO_MAP_ID: Record<WorldLocationId, string> = {
+  living_room: 'udu_home',
+  church: 'garden_park',
+  market: 'warri_market',
+  junction: 'effurun',
+};
+
+const MAP_TO_WORLD_ID: Record<string, WorldLocationId> = {
+  udu_home: 'living_room',
+  garden_park: 'church',
+  warri_market: 'market',
+  effurun: 'junction',
+};
 
 // Shortest angle lerp helper
 function lerpAngle(a: number, b: number, t: number): number {
@@ -27,6 +42,7 @@ export function WorldExplorerModal() {
 
   const [activeLocation, setActiveLocation] = useState<WorldLocationId>('living_room');
   const [activeHotspot, setActiveHotspot] = useState<WorldHotspot | null>(null);
+  const [showGoogleMap, setShowGoogleMap] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -277,14 +293,30 @@ export function WorldExplorerModal() {
             <span className={styles.subTitle}>{currentLocMeta.tagline}</span>
           </div>
 
-          <button
-            type="button"
-            className={styles.closeBtn}
-            onClick={() => setActiveModal('none')}
-            aria-label="Close 3D World"
-          >
-            ✕
-          </button>
+          <div className={styles.headerActions}>
+            <button
+              type="button"
+              className={`${styles.googleMapToggleBtn} ${showGoogleMap ? styles.googleMapToggleBtnActive : ''}`}
+              onClick={() => {
+                playSound.click();
+                setShowGoogleMap((prev) => !prev);
+              }}
+              id="btn-toggle-world-google-map"
+              aria-label="Toggle Google Map"
+            >
+              <span>🗺️</span>
+              <span>{showGoogleMap ? '3D View' : 'Google Map'}</span>
+            </button>
+
+            <button
+              type="button"
+              className={styles.closeBtn}
+              onClick={() => setActiveModal('none')}
+              aria-label="Close 3D World"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         {/* Location Selector Tabs */}
@@ -360,6 +392,39 @@ export function WorldExplorerModal() {
             }}
             onInteract={handleInteract}
           />
+
+          {/* Interactive Google Map Drawer Overlay inside 3D World */}
+          {showGoogleMap && (
+            <div className={styles.googleMapDrawer}>
+              <div className={styles.googleMapDrawerHeader}>
+                <div className={styles.googleMapDrawerTitle}>
+                  <span>🗺️</span>
+                  <span>Warri & Effurun GPS Map (Tap pin to teleport 3D Avatar)</span>
+                </div>
+                <button
+                  type="button"
+                  className={styles.return3DBtn}
+                  onClick={() => setShowGoogleMap(false)}
+                >
+                  🚶 Back to 3D
+                </button>
+              </div>
+
+              <WarriGoogleMap
+                currentLocationId={WORLD_TO_MAP_ID[activeLocation]}
+                selectedLocationId={WORLD_TO_MAP_ID[activeLocation]}
+                allowSelectCurrent
+                height={260}
+                onSelectLocation={(mapLocId) => {
+                  const target3D = MAP_TO_WORLD_ID[mapLocId];
+                  if (target3D) {
+                    switchLocation(target3D);
+                    setShowGoogleMap(false);
+                  }
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

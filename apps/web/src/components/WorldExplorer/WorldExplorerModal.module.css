@@ -102,6 +102,81 @@
   color: #f87171;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.googleMapToggleBtn {
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fde047;
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.googleMapToggleBtn:hover {
+  background: rgba(245, 158, 11, 0.25);
+}
+
+.googleMapToggleBtnActive {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #fef08a;
+  color: #0f172a;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+}
+
+.googleMapDrawer {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(12px);
+  padding: 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.googleMapDrawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.googleMapDrawerTitle {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.return3DBtn {
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: 1px solid #6ee7b7;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
 /* Location Selector Tabs */
 .locationTabs {
   display: flex;

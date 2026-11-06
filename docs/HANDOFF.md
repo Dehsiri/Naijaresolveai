@@ -63,3 +63,24 @@
 - **Contract changes requested:** none
 - **Known issues / unsure about:** none
 - **Next steps:** Ready for interactive mobile testing at `360×640` and `390×844`.
+
+## 2026-11-04 · Warri & Effurun Google Map Integration · UI Agent · master
+- **Done:**
+  - **Warri & Effurun Google Map Component ([`apps/web/src/components/GoogleMap/WarriGoogleMap.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/GoogleMap/WarriGoogleMap.tsx), [`apps/web/src/components/GoogleMap/WarriGoogleMap.module.css`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/GoogleMap/WarriGoogleMap.module.css)):**
+    - Built an interactive Google Map component mapped to real Warri and Effurun, Delta State GPS coordinates (`Your Room, Udu` at `5.4892°N, 5.7924°E`, `Effurun Roundabout` at `5.5544°N, 5.7932°E`, `Warri Main Market` at `5.5174°N, 5.7501°E`, and `Effurun Garden Park` at `5.5620°N, 5.7850°E`).
+    - Added Road (`🛣️ Road`) and Satellite (`🛰️ Satellite`) layer toggles, zoom controls (`+`/`−`), and a switcher between `🗺️ Google Map` (live embedded Google Maps) and `📡 Transit Radar` (offline SVG diagram fallback).
+    - Added Haversine distance calculation (`getWarriRouteDistanceKm`) with estimated Keke and walking commute times, quick-select pin buttons (all $\ge 44\text{px}$ tap targets), and an external `Open Maps ↗` Google Maps directions link.
+  - **Travel Modal Integration ([`apps/web/src/components/Modals/TravelModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Modals/TravelModal.tsx)):**
+    - Replaced the static diagram with `WarriGoogleMap` and added GPS coordinate badges and map selection synchronization for all locations.
+  - **3D World Explorer Google Map Drawer ([`apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx), [`apps/web/src/components/WorldExplorer/WorldExplorerModal.module.css`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldExplorerModal.module.css)):**
+    - Added a `🗺️ Google Map` toggle button in the 3D World Explorer header that opens the GPS map overlay and lets players teleport their 3D avatar between environments by tapping map pins.
+  - **Quick Action & Navigation Labels ([`apps/web/src/components/LocationBanner/LocationBanner.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/LocationBanner/LocationBanner.tsx), [`apps/web/src/components/BottomNav/BottomNav.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/BottomNav/BottomNav.tsx)):**
+    - Updated the banner action button to `🗺️ Google Map` and bottom nav item to `🗺️ Map`.
+- **Tests & Verification:**
+  - `npm run typecheck` -> 0 TypeScript errors across `@warri-vibe/engine`, `@warri-vibe/content`, and `@warri-vibe/web`.
+  - `npm run lint` -> All packages lint cleanly.
+  - `npm run test` -> 37/37 unit and content validation tests passing.
+  - `npm run build` -> Next.js static export bundle generated cleanly (`287 kB` First Load JS, within the `< 300 kB` budget).
+- **Contract changes requested:** none
+- **Known issues / unsure about:** Live Google Maps iframe tiles require internet connectivity; the built-in `📡 Transit Radar` tab provides an instant offline SVG fallback.
+- **Next steps:** Verify on mobile viewports (`360×640` and `390×844`).

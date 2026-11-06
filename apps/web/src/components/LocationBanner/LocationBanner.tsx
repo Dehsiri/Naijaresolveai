@@ -69,9 +69,10 @@ export function LocationBanner() {
         <button
           className={styles.quickBtn}
           onClick={() => setActiveModal('map')}
-          title="Change location by keke or trekking"
+          title="Open Google Map & commute by keke or trekking"
+          id="btn-open-google-map"
         >
-          <span>🗺️ Travel</span>
+          <span>🗺️ Google Map</span>
         </button>
 
         <button
