@@ -84,3 +84,13 @@
 - **Contract changes requested:** none
 - **Known issues / unsure about:** Live Google Maps iframe tiles require internet connectivity; the built-in `📡 Transit Radar` tab provides an instant offline SVG fallback.
 - **Next steps:** Verify on mobile viewports (`360×640` and `390×844`).
+
+## 2026-11-07 · Vercel Static Export Routing Fix · UI Agent · master
+- **Done:**
+  - **Root Vercel Configuration ([`vercel.json`](file:///c:/Users/USER/Documents/WARRI%20VIBES/vercel.json)):** Added `vercel.json` specifying `"buildCommand": "npm run build"` and `"outputDirectory": "apps/web/out"` so Vercel deploys the static export output from the monorepo instead of serving an empty root (which caused a 404 on `warrivibes.vercel.app`).
+  - **Next.js Workspace Transpilation ([`apps/web/next.config.mjs`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/next.config.mjs)):** Added `transpilePackages: ['@warri-vibe/engine', '@warri-vibe/content']`.
+- **Tests & Verification:**
+  - Verified `npm run typecheck`, `npm run lint`, `npm run test`, and `npm run build`.
+- **Contract changes requested:** none
+- **Known issues / unsure about:** none
+- **Next steps:** Push to `https://github.com/Dehsiri/warrivibes.git` (`master` and `main`) to trigger Vercel deployment.
