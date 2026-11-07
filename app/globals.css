@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /**
- * NaijaResolve AI — Global CSS & shadcn/ui Variables (Instagram Palette)
+ * NaijaResolve AI — Global CSS & shadcn/ui Variables (Instagram Palette, Compact Screen Scale)
  * --background: #FAFAFA (Instagram light feed gray)
  * --foreground: #121212 (Instagram obsidian dark)
  * --primary: #E1306C (Instagram signature pink-magenta)
@@ -23,7 +23,7 @@
     --border: 0 0% 86%;            /* #DBDBDB Instagram hairline */
     --input: 0 0% 86%;
     --ring: 340 75% 54%;           /* #E1306C */
-    --radius: 0.875rem;
+    --radius: 0.75rem;
   }
 
   * {
@@ -32,8 +32,8 @@
 
   body {
     @apply bg-warm text-navy font-sans antialiased;
-    font-size: 16px;
-    line-height: 1.55;
+    font-size: 14.5px;
+    line-height: 1.5;
   }
 }
 
@@ -44,28 +44,28 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Typography utilities matching Section 3 table */
+/* Compact Typography utilities so screens fit laptop viewports comfortably */
 .text-hero-h1 {
-  font-size: clamp(36px, 6vw, 60px);
-  line-height: 1.06;
+  font-size: clamp(28px, 4.2vw, 44px);
+  line-height: 1.08;
   letter-spacing: -0.02em;
   font-weight: 800;
 }
 
 .text-section-h2 {
-  font-size: 36px;
-  line-height: 1.15;
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.18;
   font-weight: 800;
 }
 
 .text-page-h1 {
-  font-size: 32px;
+  font-size: 24px;
   line-height: 1.2;
   font-weight: 800;
 }
 
 .text-chat-h1 {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1.25;
   font-weight: 800;
 }

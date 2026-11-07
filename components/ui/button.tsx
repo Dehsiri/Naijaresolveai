@@ -25,10 +25,10 @@ const buttonVariants = cva(
           "bg-red-600 text-white hover:bg-red-700",
       },
       size: {
-        default: "min-h-[48px] px-5 py-3",
-        sm: "min-h-[44px] px-4 py-2 text-[14px]",
-        lg: "min-h-[52px] px-6 py-3.5 text-[16px]",
-        icon: "h-[44px] w-[44px] p-0",
+        default: "min-h-[42px] px-4 py-2 text-[14px]",
+        sm: "min-h-[36px] px-3.5 py-1.5 text-[13px]",
+        lg: "min-h-[46px] px-5 py-2.5 text-[15px]",
+        icon: "h-[40px] w-[40px] p-0",
       },
     },
     defaultVariants: {

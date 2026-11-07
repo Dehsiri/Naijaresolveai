@@ -97,7 +97,7 @@ export default async function DashboardPage({
     ) || complaints?.[0];
 
   return (
-    <main className="flex-1 px-4 md:px-8 py-6 md:py-8 max-w-[1200px] w-full mx-auto space-y-8">
+    <main className="flex-1 px-4 md:px-6 py-5 md:py-6 max-w-[1060px] w-full mx-auto space-y-6">
       {/* =====================================================================
           1. TOP BAR: SEARCH FIELD, NOTIFICATIONS BUTTON, AVATAR INITIALS
       ===================================================================== */}

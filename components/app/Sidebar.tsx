@@ -54,7 +54,7 @@ export function Sidebar({ isAdmin = false }: SidebarProps) {
   return (
     <aside
       aria-label="Main navigation"
-      className="w-full lg:w-[232px] lg:min-h-screen shrink-0 bg-navy text-white border-b lg:border-b-0 lg:border-r border-navy-line flex flex-col justify-between p-4"
+      className="w-full lg:w-[210px] lg:min-h-screen shrink-0 bg-navy text-white border-b lg:border-b-0 lg:border-r border-navy-line flex flex-col justify-between p-3.5"
     >
       <div>
         {/* Brand Header */}

@@ -104,7 +104,7 @@ const config: Config = {
         hero: "0 30px 80px rgba(225, 48, 108, 0.22)",
       },
       maxWidth: {
-        landing: "1160px",
+        landing: "1024px",
       },
     },
   },

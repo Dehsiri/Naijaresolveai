@@ -146,12 +146,12 @@ export default function LandingPage() {
         />
 
         {/* Navigation Bar */}
-        <header className="relative z-10 w-full max-w-landing mx-auto px-4 md:px-8 py-6 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="h-10 w-10 rounded-btn bg-ig-gradient flex items-center justify-center text-white font-extrabold shrink-0">
-              <Scale className="h-5 w-5" aria-hidden="true" />
+        <header className="relative z-10 w-full max-w-landing mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="h-8 w-8 rounded-btn bg-ig-gradient flex items-center justify-center text-white font-extrabold shrink-0">
+              <Scale className="h-4 w-4" aria-hidden="true" />
             </div>
-            <span className="text-[19px] font-extrabold tracking-tight text-white">
+            <span className="text-[17px] font-extrabold tracking-tight text-white">
               NaijaResolve AI
             </span>
           </Link>
@@ -159,7 +159,7 @@ export default function LandingPage() {
           {/* Desktop Nav Links */}
           <nav
             aria-label="Marketing navigation"
-            className="hidden md:flex items-center gap-7 text-[15px] font-semibold text-muted-dark"
+            className="hidden md:flex items-center gap-6 text-[14px] font-semibold text-muted-dark"
           >
             <a href="#features" className="hover:text-white transition-colors">
               Features
@@ -182,7 +182,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="md:hidden text-[14px] font-semibold text-muted-dark hover:text-white px-2 py-2"
+              className="md:hidden text-[13px] font-semibold text-muted-dark hover:text-white px-2 py-1.5"
             >
               Sign in
             </Link>
@@ -193,9 +193,9 @@ export default function LandingPage() {
         </header>
 
         {/* Hero Body */}
-        <div className="relative z-10 w-full max-w-landing mx-auto px-4 md:px-8 pt-10 pb-20 md:pt-14 md:pb-24 flex flex-col items-center text-center">
+        <div className="relative z-10 w-full max-w-landing mx-auto px-4 md:px-6 pt-5 pb-12 md:pt-8 md:pb-16 flex flex-col items-center text-center">
           {/* 2. Tagline Chip */}
-          <div className="inline-flex items-center gap-2 min-h-[36px] px-4 py-1.5 rounded-full bg-navy-800 border border-navy-line text-[#E5E5E5] text-[13px] font-bold mb-6">
+          <div className="inline-flex items-center gap-2 min-h-[32px] px-3.5 py-1 rounded-full bg-navy-800 border border-navy-line text-[#E5E5E5] text-[12px] font-bold mb-4">
             <Sparkles
               className="h-3.5 w-3.5 text-emerald-300"
               aria-hidden="true"
@@ -203,42 +203,42 @@ export default function LandingPage() {
             <span>Your rights. Your options. Your next step.</span>
           </div>
 
-          {/* 3. Hero H1 (centred, max 820px) + Subtext (18px, max 600px, muted-on-dark) */}
-          <h1 className="text-hero-h1 max-w-[820px] text-white mb-5">
+          {/* 3. Hero H1 (centred, max 720px) + Subtext (15px, max 540px, muted-on-dark) */}
+          <h1 className="text-hero-h1 max-w-[720px] text-white mb-3.5">
             Legal problems?{" "}
             <span className="text-ig-gradient">Know your rights.</span> Find
             your next step.
           </h1>
 
-          <p className="text-[18px] text-muted-dark max-w-[600px] mb-10 leading-relaxed font-normal">
+          <p className="text-[15px] text-muted-dark max-w-[540px] mb-7 leading-relaxed font-normal">
             NaijaResolve AI helps Nigerians understand their rights, ask legal
             questions in plain language, generate complaint and demand letters,
             and find a lawyer when needed.
           </p>
 
-          {/* 4. Prompt Card (max 760px, navy-800, radius 24px, shadow-hero) */}
-          <div className="w-full max-w-[760px] rounded-hero bg-navy-800 border border-navy-line p-5 md:p-7 shadow-hero text-left">
-            <form onSubmit={handlePromptSubmit} className="space-y-4">
+          {/* 4. Prompt Card (max 680px, navy-800, radius 24px, shadow-hero) */}
+          <div className="w-full max-w-[680px] rounded-hero bg-navy-800 border border-navy-line p-4 md:p-5 shadow-hero text-left">
+            <form onSubmit={handlePromptSubmit} className="space-y-3">
               <label
                 htmlFor="hero-prompt-input"
-                className="block text-[14px] font-bold text-emerald-300 tracking-wide uppercase"
+                className="block text-[12px] font-bold text-emerald-300 tracking-wide uppercase"
               >
                 Ask NaijaResolve
               </label>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-2.5">
                 <input
                   id="hero-prompt-input"
                   type="text"
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
                   placeholder="e.g. My bank debited ₦45,000 for a failed transfer three days ago..."
-                  className="flex-1 min-h-[52px] rounded-input bg-navy border border-navy-line px-4 py-3 text-[16px] text-white placeholder:text-muted-dark focus:outline-none focus:ring-2 focus:ring-emerald"
+                  className="flex-1 min-h-[44px] rounded-input bg-navy border border-navy-line px-3.5 py-2 text-[14px] text-white placeholder:text-muted-dark focus:outline-none focus:ring-2 focus:ring-emerald"
                 />
                 <Button
                   type="submit"
-                  size="lg"
-                  className="shrink-0 gap-2 min-h-[52px]"
+                  size="default"
+                  className="shrink-0 gap-2 min-h-[44px]"
                 >
                   <span>Ask now</span>
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -246,9 +246,9 @@ export default function LandingPage() {
               </div>
             </form>
 
-            {/* Quick Suggestion Chips (Section 4 Chip Dark Spec: min-h 44, radius full, bg navy-800, border navy-line) */}
-            <div className="mt-4 pt-4 border-t border-navy-line/70 flex flex-wrap items-center gap-2.5">
-              <span className="text-[13px] font-semibold text-muted-dark mr-1">
+            {/* Quick Suggestion Chips */}
+            <div className="mt-3.5 pt-3 border-t border-navy-line/70 flex flex-wrap items-center gap-2">
+              <span className="text-[12px] font-semibold text-muted-dark mr-1">
                 Try:
               </span>
               {HERO_CHIPS.map((chip) => (
@@ -256,7 +256,7 @@ export default function LandingPage() {
                   key={chip.label}
                   type="button"
                   onClick={() => handleChipClick(chip.prompt)}
-                  className="inline-flex items-center min-h-[44px] px-4 py-2 rounded-full bg-navy border border-navy-line text-[#E5E5E5] text-[13px] font-semibold hover:bg-navy-700 hover:border-emerald/60 transition-colors"
+                  className="inline-flex items-center min-h-[34px] px-3 py-1 rounded-full bg-navy border border-navy-line text-[#E5E5E5] text-[12px] font-semibold hover:bg-navy-700 hover:border-emerald/60 transition-colors"
                 >
                   {chip.label}
                 </button>
@@ -271,23 +271,23 @@ export default function LandingPage() {
       ===================================================================== */}
       <section
         id="features"
-        className="w-full max-w-landing mx-auto px-4 md:px-8 py-16 md:py-22"
+        className="w-full max-w-landing mx-auto px-4 md:px-6 py-12 md:py-14"
       >
-        <div className="max-w-[640px] mb-10">
-          <p className="text-[13px] font-bold uppercase tracking-wider text-emerald-700 mb-2">
+        <div className="max-w-[580px] mb-8">
+          <p className="text-[12px] font-bold uppercase tracking-wider text-emerald-700 mb-1.5">
             Built for everyday legal clarity
           </p>
-          <h2 className="text-section-h2 text-navy mb-3">
+          <h2 className="text-section-h2 text-navy mb-2">
             Everything you need to understand and resolve a dispute
           </h2>
-          <p className="text-[16px] text-muted">
+          <p className="text-[14.5px] text-muted">
             From bank reversal delays to consumer complaints and tenancy
             questions, get structured information and formal documentation in
             minutes.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {FEATURE_CARDS.map((feature) => {
             const Icon = feature.icon;
             return (
@@ -298,27 +298,27 @@ export default function LandingPage() {
               >
                 <Card className="h-full flex flex-col justify-between transition-colors group-hover:border-emerald/60">
                   <div>
-                    <div className="flex items-center justify-between gap-2 mb-5">
-                      <div className="h-11 w-11 rounded-btn bg-emerald-50 text-emerald-700 flex items-center justify-center">
-                        <Icon className="h-5 w-5" aria-hidden="true" />
+                    <div className="flex items-center justify-between gap-2 mb-3.5">
+                      <div className="h-9 w-9 rounded-btn bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                        <Icon className="h-4 w-4" aria-hidden="true" />
                       </div>
-                      <span className="rounded-full bg-warm border border-line px-3 py-1 text-[12px] font-bold text-muted">
+                      <span className="rounded-full bg-warm border border-line px-2.5 py-0.5 text-[11px] font-bold text-muted">
                         {feature.tag}
                       </span>
                     </div>
 
-                    <h3 className="text-[18px] font-bold text-navy mb-2 group-hover:text-emerald-700 transition-colors">
+                    <h3 className="text-[16px] font-bold text-navy mb-1.5 group-hover:text-emerald-700 transition-colors">
                       {feature.title}
                     </h3>
 
-                    <p className="text-[15px] text-muted leading-relaxed">
+                    <p className="text-[13.5px] text-muted leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-line flex items-center justify-between text-[14px] font-bold text-navy group-hover:text-emerald-700">
+                  <div className="mt-4 pt-3 border-t border-line flex items-center justify-between text-[13px] font-bold text-navy group-hover:text-emerald-700">
                     <span>Explore</span>
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </div>
                 </Card>
               </Link>
@@ -332,19 +332,19 @@ export default function LandingPage() {
       ===================================================================== */}
       <section
         id="how-it-works"
-        className="w-full bg-navy text-white border-y border-navy-line py-16 md:py-20"
+        className="w-full bg-navy text-white border-y border-navy-line py-12 md:py-14"
       >
-        <div className="w-full max-w-landing mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div className="w-full max-w-landing mx-auto px-4 md:px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
-              <p className="text-[13px] font-bold uppercase tracking-wider text-emerald-300 mb-2">
+              <p className="text-[12px] font-bold uppercase tracking-wider text-emerald-300 mb-1.5">
                 How it works
               </p>
               <h2 className="text-section-h2 text-white">
                 Three simple steps from confusion to action
               </h2>
             </div>
-            <Button asChild>
+            <Button asChild size="sm">
               <Link href="/signup" className="gap-2">
                 Start for free
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -352,26 +352,26 @@ export default function LandingPage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {HOW_IT_WORKS_STEPS.map((item) => (
               <div
                 key={item.step}
-                className="rounded-card bg-navy-800 border border-navy-line p-6 flex flex-col justify-between"
+                className="rounded-card bg-navy-800 border border-navy-line p-5 flex flex-col justify-between"
               >
                 <div>
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-btn bg-ig-gradient text-white text-[16px] font-extrabold mb-5">
+                  <div className="inline-flex h-8 w-8 items-center justify-center rounded-btn bg-ig-gradient text-white text-[14px] font-extrabold mb-3.5">
                     {item.step}
                   </div>
-                  <h3 className="text-[20px] font-extrabold text-white mb-2.5">
+                  <h3 className="text-[17px] font-extrabold text-white mb-1.5">
                     {item.step}. {item.title}
                   </h3>
-                  <p className="text-[15px] text-muted-dark leading-relaxed">
+                  <p className="text-[13.5px] text-muted-dark leading-relaxed">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-navy-line flex items-center gap-2 text-[13px] font-semibold text-emerald-300">
-                  <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+                <div className="mt-4 pt-3 border-t border-navy-line flex items-center gap-2 text-[12px] font-semibold text-emerald-300">
+                  <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
                   <span>Built for Nigerian regulations</span>
                 </div>
               </div>
