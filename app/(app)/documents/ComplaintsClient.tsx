@@ -128,7 +128,11 @@ export function ComplaintsClient({
     if (res?.error) {
       toast.error(res.error);
     } else {
-      toast.success(`Dispute status updated to "${newStatus}"`);
+      if (res?.automationSummary) {
+        toast.success(res.automationSummary);
+      } else {
+        toast.success(`Dispute status updated to "${newStatus}"`);
+      }
       router.refresh();
     }
   }

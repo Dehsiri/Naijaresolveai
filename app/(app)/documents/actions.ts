@@ -7,10 +7,14 @@ import {
   getDemoComplaints,
   saveDemoComplaints,
 } from "@/lib/demo-store";
+import { triggerComplaintAutomation } from "@/lib/automation";
 
 /**
- * Step 5: Complaints CRUD Server Actions (`app/(app)/documents/actions.ts`)
- * Supports both live Supabase Postgres and automatic Demo Store fallback.
+ * Step 5 & Step 8: Complaints CRUD + Automation Server Actions (`app/(app)/documents/actions.ts`)
+ * - Create a complaint (`createComplaintAction`)
+ * - Update complaint status (`updateComplaintStatusAction`) — triggers Section 8 Automation
+ *   when status changes to `submitted`!
+ * - Delete a complaint (`deleteComplaintAction`)
  */
 
 export async function createComplaintAction(formData: FormData) {
@@ -89,18 +93,41 @@ export async function createComplaintAction(formData: FormData) {
 
 export async function updateComplaintStatusAction(
   complaintId: string,
-  status: "draft" | "submitted" | "escalated" | "resolved"
+  status: "draft" | "submitted" | "escalated" | "resolved",
+  allowAdminOverride = false
 ) {
+  let automationSummary: string | null = null;
+
   if (!isSupabaseConfigured()) {
+    const demoUser = getDemoUser();
     const list = getDemoComplaints();
+    const target = list.find((c) => c.id === complaintId);
+
     const updated = list.map((c) =>
       c.id === complaintId ? { ...c, status } : c
     );
     saveDemoComplaints(updated);
+
+    if (status === "submitted" && target) {
+      const autoRes = await triggerComplaintAutomation({
+        complaintId: target.id,
+        company: target.company,
+        category: target.category,
+        amount: target.amount,
+        incidentDate: target.incident_date,
+        description: target.description,
+        letter: target.letter,
+        userName: demoUser?.full_name || "Chinedu Okafor",
+        userEmail: demoUser?.email || "chinedu@example.com",
+      });
+      automationSummary = autoRes.summary;
+    }
+
     revalidatePath("/documents");
     revalidatePath(`/documents/${complaintId}`);
     revalidatePath("/dashboard");
-    return { success: true };
+    revalidatePath("/admin");
+    return { success: true, automationSummary };
   }
 
   const supabase = createClient();
@@ -112,20 +139,57 @@ export async function updateComplaintStatusAction(
     return { error: "You must be signed in to update a complaint." };
   }
 
-  const { error } = await supabase
+  let query = supabase
     .from("complaints")
     .update({ status })
-    .eq("id", complaintId)
-    .eq("user_id", user.id);
+    .eq("id", complaintId);
+
+  if (!allowAdminOverride) {
+    query = query.eq("user_id", user.id);
+  }
+
+  const { error } = await query;
 
   if (error) {
     return { error: error.message };
   }
 
+  // Step 8: If status was changed to `submitted`, fire the Automation workflow
+  if (status === "submitted") {
+    const { data: complaint } = await supabase
+      .from("complaints")
+      .select("*")
+      .eq("id", complaintId)
+      .single();
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("full_name")
+      .eq("id", user.id)
+      .single();
+
+    if (complaint) {
+      const autoRes = await triggerComplaintAutomation({
+        complaintId: complaint.id,
+        company: complaint.company,
+        category: complaint.category,
+        amount: complaint.amount,
+        incidentDate: complaint.incident_date,
+        description: complaint.description,
+        letter: complaint.letter,
+        userName:
+          profile?.full_name || user.email?.split("@")[0] || "Complainant",
+        userEmail: user.email || "user@example.com",
+      });
+      automationSummary = autoRes.summary;
+    }
+  }
+
   revalidatePath("/documents");
   revalidatePath(`/documents/${complaintId}`);
   revalidatePath("/dashboard");
-  return { success: true };
+  revalidatePath("/admin");
+  return { success: true, automationSummary };
 }
 
 export async function deleteComplaintAction(complaintId: string) {
@@ -134,6 +198,7 @@ export async function deleteComplaintAction(complaintId: string) {
     saveDemoComplaints(list);
     revalidatePath("/documents");
     revalidatePath("/dashboard");
+    revalidatePath("/admin");
     return { success: true };
   }
 
@@ -158,5 +223,6 @@ export async function deleteComplaintAction(complaintId: string) {
 
   revalidatePath("/documents");
   revalidatePath("/dashboard");
+  revalidatePath("/admin");
   return { success: true };
 }

@@ -100,7 +100,11 @@ export function DocumentPreviewClient({
       toast.error(res.error);
     } else {
       setStatus(newStatus);
-      toast.success(`Complaint marked as "${newStatus}"`);
+      if (res?.automationSummary) {
+        toast.success(`Complaint submitted! ${res.automationSummary}`);
+      } else {
+        toast.success(`Complaint marked as "${newStatus}"`);
+      }
       router.refresh();
     }
   }
