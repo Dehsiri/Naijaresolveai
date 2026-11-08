@@ -3,19 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { setDemoUser, clearDemoUser } from "@/lib/demo-store";
 
 /**
- * Sign up a new user with Supabase Auth and ensure a row exists in `public.profiles`.
- * Supports forwarding an initial legal question (`?q=...`) from the landing page prompt card.
+ * Sign up a new user with Supabase Auth (or instant Demo Session when Supabase env vars are not yet added).
  */
 export async function signUpAction(formData: FormData) {
-  if (!isSupabaseConfigured()) {
-    return {
-      error:
-        "Supabase is not configured yet. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your .env.local file.",
-    };
-  }
-
   const fullName = String(formData.get("fullName") || "").trim();
   const email = String(formData.get("email") || "").trim();
   const password = String(formData.get("password") || "");
@@ -23,8 +16,26 @@ export async function signUpAction(formData: FormData) {
 
   if (!fullName || !email || password.length < 6) {
     return {
-      error: "Please enter your full name, valid email, and a password of at least 6 characters.",
+      error:
+        "Please enter your full name, valid email, and a password of at least 6 characters.",
     };
+  }
+
+  // Seamless Demo Mode when Supabase keys are not yet configured
+  if (!isSupabaseConfigured()) {
+    const isAdminEmail = email.toLowerCase().includes("admin");
+    setDemoUser({
+      id: "demo-user-1",
+      email,
+      full_name: fullName,
+      role: isAdminEmail ? "admin" : "user",
+    });
+
+    revalidatePath("/", "layout");
+    if (initialQuestion) {
+      redirect(`/assistant?q=${encodeURIComponent(initialQuestion)}`);
+    }
+    redirect("/dashboard");
   }
 
   const supabase = createClient();
@@ -43,7 +54,6 @@ export async function signUpAction(formData: FormData) {
     return { error: error.message };
   }
 
-  // Ensure a row exists in `profiles` (Section 7 requirement: trigger OR server action)
   if (data.user) {
     await supabase.from("profiles").upsert(
       {
@@ -55,12 +65,10 @@ export async function signUpAction(formData: FormData) {
     );
   }
 
-  // If email confirmation is enabled on the Supabase project and session is null,
-  // inform the user clearly.
   if (data.user && !data.session) {
     return {
       success:
-        "Account created! Please check your email inbox to confirm your account, or disable 'Confirm email' in Supabase Auth -> Providers -> Email for instant login.",
+        "Account created! Please check your email inbox to confirm your account.",
     };
   }
 
@@ -72,22 +80,36 @@ export async function signUpAction(formData: FormData) {
 }
 
 /**
- * Log in an existing user with email and password.
+ * Log in an existing user with email and password (or instant Demo Session if Supabase is not configured yet).
  */
 export async function signInAction(formData: FormData) {
-  if (!isSupabaseConfigured()) {
-    return {
-      error:
-        "Supabase is not configured yet. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your .env.local file.",
-    };
-  }
-
   const email = String(formData.get("email") || "").trim();
   const password = String(formData.get("password") || "");
   const initialQuestion = String(formData.get("q") || "").trim();
 
   if (!email || !password) {
     return { error: "Please enter both your email and password." };
+  }
+
+  if (!isSupabaseConfigured()) {
+    const isAdminEmail = email.toLowerCase().includes("admin");
+    const derivedName = email
+      .split("@")[0]
+      .replace(/[._-]/g, " ")
+      .replace(/\b\w/g, (l) => l.toUpperCase());
+
+    setDemoUser({
+      id: "demo-user-1",
+      email,
+      full_name: derivedName || "Chinedu Okafor",
+      role: isAdminEmail ? "admin" : "user",
+    });
+
+    revalidatePath("/", "layout");
+    if (initialQuestion) {
+      redirect(`/assistant?q=${encodeURIComponent(initialQuestion)}`);
+    }
+    redirect("/dashboard");
   }
 
   const supabase = createClient();
@@ -112,6 +134,7 @@ export async function signInAction(formData: FormData) {
  * Log out the current user and redirect to `/login`.
  */
 export async function signOutAction() {
+  clearDemoUser();
   if (isSupabaseConfigured()) {
     const supabase = createClient();
     await supabase.auth.signOut();
@@ -119,4 +142,3 @@ export async function signOutAction() {
   revalidatePath("/", "layout");
   redirect("/login");
 }
-

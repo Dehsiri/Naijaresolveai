@@ -30,3 +30,4 @@ export function AssistantBubble({ content }: { content: string }) {
     </div>
   );
 }
+

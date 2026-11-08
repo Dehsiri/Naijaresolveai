@@ -1,12 +1,11 @@
 import { redirect } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { getDemoUser } from "@/lib/demo-store";
 import { Sidebar } from "@/components/app/Sidebar";
 
 /**
  * Auth-Protected `(app)` Layout (`app/(app)/layout.tsx`)
- * Step 2 Acceptance Criterion:
- * - Verifies user session on the server; redirects logged-out users to `/login`.
- * - Loads `profiles.role` to determine if the Admin link is shown in the Sidebar.
+ * Verifies user session on the server (or Demo Session when Supabase env vars are not yet added).
  */
 export default async function AppLayout({
   children,
@@ -14,7 +13,16 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   if (!isSupabaseConfigured()) {
-    redirect("/login?setup=required");
+    const demoUser = getDemoUser();
+    if (!demoUser) {
+      redirect("/login");
+    }
+    return (
+      <div className="min-h-screen flex flex-col lg:flex-row bg-warm text-navy">
+        <Sidebar isAdmin={demoUser.role === "admin"} />
+        <div className="flex-1 flex flex-col min-w-0">{children}</div>
+      </div>
+    );
   }
 
   const supabase = createClient();
@@ -26,7 +34,6 @@ export default async function AppLayout({
     redirect("/login");
   }
 
-  // Fetch user profile to check role
   const { data: profile } = await supabase
     .from("profiles")
     .select("full_name, role")
@@ -42,4 +49,3 @@ export default async function AppLayout({
     </div>
   );
 }
-

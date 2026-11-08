@@ -40,3 +40,4 @@ export function SourceCard({ source }: { source: LegalSource }) {
     </div>
   );
 }
+

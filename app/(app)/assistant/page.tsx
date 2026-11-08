@@ -1,4 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { getDemoConversations } from "@/lib/demo-store";
 import {
   AssistantClient,
   type ConversationRow,
@@ -7,18 +8,28 @@ import {
 
 /**
  * Step 7: AI Legal Assistant Page (`app/(app)/assistant/page.tsx`)
- * Implements Section 5.3 Spec:
- * - Chat column (header with conversation title + status pill) and a Sources panel on the right
- *   (collapses below the chat on small screens).
- * - User bubble, then an Answer Card with structured sections ("What this means" / "Your options"),
- *   source chips, and actions: "Draft complaint letter" (primary), "Find a lawyer" (secondary).
- * - Composer pinned to bottom.
  */
 export default async function AssistantPage({
   searchParams,
 }: {
   searchParams?: { id?: string; q?: string };
 }) {
+  if (!isSupabaseConfigured()) {
+    const recentList = getDemoConversations() as ConversationRow[];
+    const activeConversation = searchParams?.id
+      ? recentList.find((c) => c.id === searchParams.id) || null
+      : null;
+
+    return (
+      <AssistantClient
+        activeConversation={activeConversation}
+        initialMessages={[]}
+        recentConversations={recentList}
+        initialPrompt={searchParams?.q || ""}
+      />
+    );
+  }
+
   const supabase = createClient();
   const {
     data: { user },
@@ -26,7 +37,6 @@ export default async function AssistantPage({
 
   const userId = user?.id || "";
 
-  // Load recent conversations for the user
   const { data: conversations } = await supabase
     .from("conversations")
     .select("id, title, status, created_at")
@@ -36,7 +46,6 @@ export default async function AssistantPage({
 
   const recentList = (conversations as ConversationRow[]) || [];
 
-  // Determine active conversation if `?id=...` is provided
   let activeConversation: ConversationRow | null = null;
   let initialMessages: MessageRow[] = [];
 

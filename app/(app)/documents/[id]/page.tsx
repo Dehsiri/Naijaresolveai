@@ -1,18 +1,36 @@
 import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { getDemoUser, getDemoComplaints } from "@/lib/demo-store";
 import { DocumentPreviewClient } from "./DocumentPreviewClient";
 import type { ComplaintItem } from "../ComplaintsClient";
 
 /**
  * Step 6: Document Preview & AI Letter Generation Page (`app/(app)/documents/[id]/page.tsx`)
- * Loads a single complaint by ID (protected by Supabase RLS) and renders the
- * formal complaint letter preview and AI generation controls.
  */
 export default async function DocumentDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
+  if (!isSupabaseConfigured()) {
+    const demoUser = getDemoUser();
+    const list = getDemoComplaints();
+    const complaint = list.find((c) => c.id === params.id) || list[0];
+
+    if (!complaint) {
+      notFound();
+    }
+
+    return (
+      <main className="flex-1 px-4 md:px-6 py-5 md:py-6 max-w-[1060px] w-full mx-auto">
+        <DocumentPreviewClient
+          complaint={complaint as ComplaintItem}
+          senderName={demoUser?.full_name || "Chinedu Okafor"}
+        />
+      </main>
+    );
+  }
+
   const supabase = createClient();
   const {
     data: { user },
@@ -48,4 +66,3 @@ export default async function DocumentDetailPage({
     </main>
   );
 }
-

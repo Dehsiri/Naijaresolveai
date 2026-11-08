@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import {
+  getDemoUser,
+  getDemoComplaints,
+  saveDemoComplaints,
+} from "@/lib/demo-store";
 
 /**
  * Helper to determine the relevant Nigerian regulator & verified law framework
@@ -208,15 +213,6 @@ async function generateLetterWithLLM(prompt: string, apiKey: string): Promise<st
  */
 export async function POST(request: Request) {
   try {
-    const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const body = await request.json();
     const complaintId = String(body?.complaintId || "").trim();
 
@@ -225,6 +221,47 @@ export async function POST(request: Request) {
         { error: "complaintId is required" },
         { status: 400 }
       );
+    }
+
+    if (!isSupabaseConfigured()) {
+      const demoUser = getDemoUser();
+      const list = getDemoComplaints();
+      const complaint = list.find((c) => c.id === complaintId) || list[0];
+
+      if (!complaint) {
+        return NextResponse.json(
+          { error: "Complaint not found" },
+          { status: 404 }
+        );
+      }
+
+      const senderName = demoUser?.full_name || "Chinedu Okafor";
+      const senderEmail = demoUser?.email || "chinedu@example.com";
+      const generatedLetter = buildStructuredNigerianLetter({
+        senderName,
+        senderEmail,
+        company: complaint.company,
+        category: complaint.category,
+        description: complaint.description,
+        amount: complaint.amount,
+        incidentDate: complaint.incident_date,
+      });
+
+      const updated = list.map((c) =>
+        c.id === complaint.id ? { ...c, letter: generatedLetter } : c
+      );
+      saveDemoComplaints(updated);
+
+      return NextResponse.json({ letter: generatedLetter });
+    }
+
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Load complaint row (RLS ensures user owns this complaint)

@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import {
+  getDemoUser,
+  getDemoConversations,
+  saveDemoConversations,
+} from "@/lib/demo-store";
 
 /**
  * Exact System Prompt from Section 8 of the Spec:
@@ -255,15 +260,6 @@ function sanitizeReply(parsed: Record<string, unknown>): AssistantReply {
  */
 export async function POST(request: Request) {
   try {
-    const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const body = await request.json();
     const messageText = String(body?.message || "").trim();
     let conversationId = body?.conversationId
@@ -275,6 +271,57 @@ export async function POST(request: Request) {
         { error: "Please enter a question." },
         { status: 400 }
       );
+    }
+
+    if (!isSupabaseConfigured()) {
+      const demoUser = getDemoUser();
+      const convs = getDemoConversations();
+
+      if (!conversationId) {
+        conversationId = `demo-conv-${Date.now()}`;
+        const title =
+          messageText.length > 60
+            ? `${messageText.slice(0, 57)}...`
+            : messageText;
+        convs.unshift({
+          id: conversationId,
+          user_id: demoUser?.id || "demo-user-1",
+          title,
+          status: "in_progress",
+          created_at: new Date().toISOString(),
+        });
+        saveDemoConversations(convs);
+      }
+
+      const llmKey = process.env.LLM_API_KEY?.trim();
+      let reply: AssistantReply | null = null;
+      if (llmKey && llmKey !== "your-llm-api-key") {
+        reply = await callAssistantLLM(
+          [{ role: "user", content: messageText }],
+          llmKey
+        );
+      }
+      if (!reply) {
+        reply = buildFallbackAssistantReply(messageText);
+      }
+
+      return NextResponse.json({
+        conversationId,
+        sections: {
+          meaning: reply.meaning,
+          options: reply.options,
+        },
+        sources: reply.sources,
+      });
+    }
+
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // 1. Create a new conversation if conversationId was not passed
@@ -358,3 +405,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+

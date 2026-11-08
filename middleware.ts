@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
- * Next.js Middleware for Supabase Auth session refresh and route protection.
+ * Next.js Middleware for Supabase Auth + Demo Mode session protection.
  * Step 2 Acceptance Criterion:
  * "Logged-out users are redirected to login" when visiting protected `(app)` routes.
  */
@@ -27,15 +27,27 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/documents") ||
     pathname.startsWith("/admin");
 
-  // If Supabase env vars are not yet added, redirect protected routes to /login
-  // with a friendly notice so the app never crashes.
+  // If Supabase env vars are not yet added, check our Demo Session cookie (`nr_demo_user`)
   if (!isConfigured) {
-    if (isProtectedAppRoute) {
+    const hasDemoUser = Boolean(request.cookies.get("nr_demo_user")?.value);
+
+    if (!hasDemoUser && isProtectedAppRoute) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/login";
-      loginUrl.searchParams.set("setup", "required");
+      const askParam = request.nextUrl.searchParams.get("q");
+      if (askParam) {
+        loginUrl.searchParams.set("q", askParam);
+      }
       return NextResponse.redirect(loginUrl);
     }
+
+    if (hasDemoUser && (pathname === "/login" || pathname === "/signup")) {
+      const nextUrl = request.nextUrl.clone();
+      const askParam = request.nextUrl.searchParams.get("q");
+      nextUrl.pathname = askParam ? "/assistant" : "/dashboard";
+      return NextResponse.redirect(nextUrl);
+    }
+
     return supabaseResponse;
   }
 
@@ -64,12 +76,10 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // Refresh session if expired
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Redirect unauthenticated users trying to access protected `(app)` routes to `/login`
   if (!user && isProtectedAppRoute) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
@@ -80,15 +90,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect authenticated users away from `/login` or `/signup` to `/dashboard`
   if (user && (pathname === "/login" || pathname === "/signup")) {
     const nextUrl = request.nextUrl.clone();
     const askParam = request.nextUrl.searchParams.get("q");
-    if (askParam) {
-      nextUrl.pathname = "/assistant";
-    } else {
-      nextUrl.pathname = "/dashboard";
-    }
+    nextUrl.pathname = askParam ? "/assistant" : "/dashboard";
     return NextResponse.redirect(nextUrl);
   }
 
@@ -100,4 +105,3 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
-

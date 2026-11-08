@@ -1,30 +1,36 @@
 import { ShieldAlert } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { getDemoComplaints } from "@/lib/demo-store";
 import { ComplaintsClient, type ComplaintItem } from "./ComplaintsClient";
 
 /**
  * Step 5: Documents & Complaints Tracking Page (`app/(app)/documents/page.tsx`)
- * Acceptance Criteria:
- * - Complaint form + list: create, read, update status, delete
- * - CRUD works and persists in Supabase `complaints` table
  */
 export default async function DocumentsPage({
   searchParams,
 }: {
   searchParams?: { company?: string; description?: string };
 }) {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let complaints: ComplaintItem[] = [];
 
-  const { data: complaints } = await supabase
-    .from("complaints")
-    .select(
-      "id, company, category, description, amount, incident_date, status, letter, created_at"
-    )
-    .eq("user_id", user?.id || "")
-    .order("created_at", { ascending: false });
+  if (!isSupabaseConfigured()) {
+    complaints = getDemoComplaints() as ComplaintItem[];
+  } else {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const { data } = await supabase
+      .from("complaints")
+      .select(
+        "id, company, category, description, amount, incident_date, status, letter, created_at"
+      )
+      .eq("user_id", user?.id || "")
+      .order("created_at", { ascending: false });
+
+    complaints = (data as ComplaintItem[]) || [];
+  }
 
   return (
     <main className="flex-1 px-4 md:px-6 py-5 md:py-6 max-w-[1060px] w-full mx-auto space-y-5">
@@ -34,7 +40,7 @@ export default async function DocumentsPage({
           <h1 className="text-page-h1 text-navy mb-1">
             Documents & Dispute Tracker
           </h1>
-          <p className="text-[16px] text-muted">
+          <p className="text-[14.5px] text-muted">
             Log a complaint, generate a formal demand or complaint letter, and
             track its resolution status.
           </p>
@@ -51,11 +57,10 @@ export default async function DocumentsPage({
 
       {/* Interactive CRUD Form & List */}
       <ComplaintsClient
-        initialComplaints={(complaints as ComplaintItem[]) || []}
+        initialComplaints={complaints}
         defaultCompany={searchParams?.company || ""}
         defaultDescription={searchParams?.description || ""}
       />
     </main>
   );
 }
-
