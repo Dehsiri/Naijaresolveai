@@ -94,3 +94,18 @@
 - **Contract changes requested:** none
 - **Known issues / unsure about:** none
 - **Next steps:** Push to `https://github.com/Dehsiri/warrivibes.git` (`master` and `main`) to trigger Vercel deployment.
+
+## 2026-11-09 · Full-Screen Layout, 3D Movement, Sprint Run & Jump Physics · UI Agent · master
+- **Done:**
+  - **Full-Screen Layout (`100vw` × `100dvh`) ([`apps/web/src/styles/tokens.css`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/styles/tokens.css), [`apps/web/src/styles/global.css`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/styles/global.css), [`apps/web/src/components/BottomNav/BottomNav.module.css`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/BottomNav/BottomNav.module.css), [`apps/web/src/components/ActionList/ActionList.module.css`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/ActionList/ActionList.module.css), [`apps/web/src/components/WorldExplorer/WorldExplorerModal.module.css`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldExplorerModal.module.css)):**
+    - Expanded `--max-width` to `100vw` and updated `.app-container`, `.navBar` (7-column full-width grid), `.container` (responsive multi-column action card grid on wide viewports), and `.modalCard` (`100vw` × `100dvh`) so both the main interface and the 3D World Explorer occupy the entire screen.
+    - Added native browser Full Screen API toggle buttons (`⛶ Full Screen`) in [`LocationBanner.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/LocationBanner/LocationBanner.tsx) and [`WorldExplorerModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx).
+  - **3D Movement, Run/Sprint & Jump Animations ([`apps/web/src/components/Avatar3D/AvatarModelBuilder.ts`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/Avatar3D/AvatarModelBuilder.ts)):**
+    - Added procedural `'run'` sprint animation cycle (high-tempo `15.5x` cycle, `0.95 rad` knee drive, pumped forearms, athletic forward lean, and vertical stride bounce) and airborne `'jump'` pose.
+  - **8-Directional / 360° Touch Stick, Sprint & 3D Jump Controls ([`apps/web/src/components/WorldExplorer/WorldControls.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldControls.tsx), [`apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/src/components/WorldExplorer/WorldExplorerModal.tsx)):**
+    - Added 8-way D-Pad + 360° analog pointer drag stick, `🏃 SPRINT (2x)` / `🚶 Walk (1x)` toggle (`R` or `Shift`), and `🦘 Jump` (`Spacebar`) with vertical gravity physics, camera-relative movement, 360° touch/mouse camera orbit + wheel zoom, and 3D sprint dust trail particles.
+- **Tests & Verification:**
+  - Verified `npm run typecheck`, `npm run lint`, `npm run test`, and `npm run build`.
+- **Contract changes requested:** none
+- **Known issues / unsure about:** none
+- **Next steps:** Commit and push to `master` and `main` on `https://github.com/Dehsiri/warrivibes.git`.

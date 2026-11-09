@@ -27,6 +27,15 @@ export function LocationBanner() {
 
   const canEat = state.mealsToday < 3 && state.money >= 500;
 
+  const handleToggleFullscreen = () => {
+    if (typeof document === 'undefined') return;
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.().catch(() => {});
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  };
+
   return (
     <div className={`${styles.banner} ${timeInfo.class}`}>
       <div className={styles.headerArea}>
@@ -60,10 +69,10 @@ export function LocationBanner() {
         <button
           className={styles.quickBtn}
           onClick={() => setActiveModal('world')}
-          title="Walk and explore this location in 3D"
+          title="Move, run, and jump in full-screen 3D"
           id="btn-explore-3d-world"
         >
-          <span>🚶 Walk in 3D</span>
+          <span>🏃 Run in 3D</span>
         </button>
 
         <button
@@ -73,6 +82,15 @@ export function LocationBanner() {
           id="btn-open-google-map"
         >
           <span>🗺️ Google Map</span>
+        </button>
+
+        <button
+          className={styles.quickBtn}
+          onClick={handleToggleFullscreen}
+          title="Toggle Full Screen Mode"
+          id="btn-banner-fullscreen"
+        >
+          <span>⛶ Full Screen</span>
         </button>
 
         <button

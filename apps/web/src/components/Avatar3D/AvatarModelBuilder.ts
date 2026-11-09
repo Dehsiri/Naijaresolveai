@@ -635,7 +635,56 @@ export function build3DAvatar(
     const speedMultiplier = isExhausted ? 0.6 : 1.0;
     const t = time * speedMultiplier;
 
-    if (pose === 'walk') {
+    if (pose === 'jump') {
+      // Airborne 3D Jump Pose
+      body.position.y = 0.06;
+      body.rotation.z = 0;
+
+      torso.rotation.x = 0.14;
+      torso.rotation.y = 0;
+
+      head.rotation.set(-0.1, 0, 0);
+
+      // Knees tucked mid-air
+      leftLeg.rotation.set(0.65, 0, -0.06);
+      rightLeg.rotation.set(-0.45, 0, 0.06);
+
+      // Arms raised dynamically
+      leftArm.rotation.set(-0.85, 0, 0.35);
+      leftForearm.rotation.set(-0.65, 0, 0);
+
+      rightArm.rotation.set(-0.85, 0, -0.35);
+      rightForearm.rotation.set(-0.65, 0, 0);
+    } else if (pose === 'run') {
+      // High-Energy Warri Street Sprint / Run Cycle
+      const runCycle = t * 15.5;
+      const legStride = Math.sin(runCycle) * 0.95;
+      const armStride = Math.sin(runCycle) * 0.85;
+
+      // Dynamic vertical sprint bounce
+      body.position.y = Math.abs(Math.sin(runCycle)) * 0.085;
+      body.rotation.z = Math.sin(runCycle) * 0.045;
+
+      // Athletic forward sprint lean & torso counter-twist
+      torso.rotation.x = 0.22;
+      torso.rotation.y = Math.sin(runCycle) * 0.14;
+
+      // Stabilized head looking ahead
+      head.rotation.x = -0.08;
+      head.rotation.y = -Math.sin(runCycle) * 0.08;
+      head.rotation.z = 0;
+
+      // High knee drive stride
+      leftLeg.rotation.set(legStride, 0, 0);
+      rightLeg.rotation.set(-legStride, 0, 0);
+
+      // Pumped sprint arms
+      leftArm.rotation.set(-armStride, 0, 0.16);
+      leftForearm.rotation.set(-1.05 + Math.max(0, -armStride) * 0.35, 0, 0);
+
+      rightArm.rotation.set(armStride, 0, -0.16);
+      rightForearm.rotation.set(-1.05 + Math.max(0, armStride) * 0.35, 0, 0);
+    } else if (pose === 'walk') {
       // Natural Warri Street Hustler Walk (alternating leg stride & arm swing)
       const walkCycle = t * 9.0;
       const legStride = Math.sin(walkCycle) * 0.58;

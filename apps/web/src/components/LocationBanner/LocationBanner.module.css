@@ -85,6 +85,7 @@
 
 .quickActions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 14px;
   position: relative;
@@ -103,7 +104,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-main);
   transition: all 0.2s ease;
-  min-height: 40px;
+  min-height: 44px;
 }
 
 .quickBtn:hover {

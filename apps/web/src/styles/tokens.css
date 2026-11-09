@@ -47,7 +47,7 @@
   --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
   /* Layout */
-  --max-width: 480px;
+  --max-width: 100vw;
   --min-tap-target: 44px;
   --nav-height: 68px;
 }
