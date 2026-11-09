@@ -109,3 +109,12 @@
 - **Contract changes requested:** none
 - **Known issues / unsure about:** none
 - **Next steps:** Commit and push to `master` and `main` on `https://github.com/Dehsiri/warrivibes.git`.
+
+## 2026-11-09 · Multi-Directory Vercel Output Compatibility (`warrivibes-three.vercel.app`) · UI Agent · master
+- **Done:**
+  - Added [`apps/web/vercel.json`](file:///c:/Users/USER/Documents/WARRI%20VIBES/apps/web/vercel.json) and updated root [`package.json`](file:///c:/Users/USER/Documents/WARRI%20VIBES/package.json) build script to mirror `apps/web/out` into `out`, `public`, and `apps/web/public` when `process.env.VERCEL` is set, ensuring any Vercel project configuration (`warrivibes.vercel.app` and `warrivibes-three.vercel.app`) serves `index.html` and `_next/` assets properly.
+- **Tests & Verification:**
+  - Verified `npm run typecheck`, `npm run lint`, `npm run test`, and `npm run build`.
+- **Contract changes requested:** none
+- **Known issues / unsure about:** none
+- **Next steps:** Push to GitHub remotes to trigger Vercel deployment.

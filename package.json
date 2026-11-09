@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspace=apps/web",
-    "build": "npm run build --workspace=packages/engine && npm run build --workspace=packages/content && npm run build --workspace=apps/web",
+    "build": "npm run build --workspace=packages/engine && npm run build --workspace=packages/content && npm run build --workspace=apps/web && node -e \"const fs=require('fs'); fs.cpSync('apps/web/out','out',{recursive:true}); if(process.env.VERCEL){ fs.cpSync('apps/web/out','public',{recursive:true}); fs.cpSync('apps/web/out','apps/web/public',{recursive:true}); }\"",
     "test": "npm run test --workspace=packages/engine && npm run test --workspace=packages/content",
     "test:e2e": "npm run test:e2e --workspace=apps/web",
     "typecheck": "npm run typecheck --workspace=packages/engine && npm run typecheck --workspace=packages/content && npm run typecheck --workspace=apps/web",
